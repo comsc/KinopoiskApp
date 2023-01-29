@@ -1,36 +1,36 @@
 package com.example.newsproject
 
+//import androidx.fragment.app.viewModels
+//import androidx.lifecycle.MutableLiveData
+//import androidx.lifecycle.ViewModelProvider
+//import androidx.navigation.fragment.findNavController
+//import com.example.newsproject.api.Repository
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.newsproject.api.Repository
 import com.example.newsproject.databinding.FragmentFirstBinding
-import retrofit2.Response
+
+//import retrofit2.Response
 
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
-    private lateinit var adapter: NewsAdapter
+    private val adapter: NewsAdapter by lazy { NewsAdapter() }
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
+    private val viewModel by viewModels<NewsViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
 
@@ -38,13 +38,14 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
 
+        viewModel.myNewsList.observe(viewLifecycleOwner) { list ->
+            adapter.submitList(list?.articles)
+        }
     }
-    private fun initRcView() = with(binding){
+
+    private fun initRcView() = with(binding) {
         recycleView.layoutManager = LinearLayoutManager(activity)
- //       val viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
-        adapter = NewsAdapter()
         recycleView.adapter = adapter
- //       viewModel.getNewsData()
 
 
 //        val list = listOf(
@@ -56,9 +57,20 @@ class FirstFragment : Fragment() {
 //        adapter.submitList(list)
 
     }
+//    private fun updateNews() = with(binding){
+//        val viewModel by viewModels<NewsViewModel>()
+//        viewModel.getNewsData()
+//        viewModel.myNewsList.observe(viewLifecycleOwner){
+//                list -> adapter.submitList(list.articles)
+//
+//        }
+//
+//    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
+
