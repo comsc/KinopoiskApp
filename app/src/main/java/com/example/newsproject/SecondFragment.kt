@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import coil.load
 import com.example.newsproject.databinding.FragmentSecondBinding
 
 /**
@@ -18,6 +20,7 @@ class SecondFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val bundleArgs: SecondFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +35,16 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
+        val articleArg = bundleArgs.article
+        articleArg.let { article ->
+            binding.newsImageDetail.load(article.urlToImage)
+            binding.newsTitleDetail.text = article.title
+            binding.newsDescDetail.text = article.description
+            binding.newsDateDetail.text = article.publishedAt
+
+        }
+
+        binding.buttonBack.setOnClickListener {
             findNavController().popBackStack()
         }
     }

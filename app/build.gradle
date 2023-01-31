@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -35,6 +37,8 @@ android {
     }
 }
 
+
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.9.0'
@@ -56,9 +60,13 @@ dependencies {
     //implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
-// Room
+    // Room
     def roomVersion = "2.4.2"
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
+    // Navigation Components
+    def navVersion = "2.4.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
 
 }

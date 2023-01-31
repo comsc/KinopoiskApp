@@ -1,7 +1,6 @@
 package com.example.newsproject
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,7 +9,7 @@ import coil.load
 import com.example.newsproject.databinding.CardNewsBinding
 import com.example.newsproject.models.Articles
 
-class NewsAdapter : ListAdapter<Articles, Holder>(Comparator()) {
+class NewsAdapter(private val listener: Listener) : ListAdapter<Articles, Holder>(Comparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val itemBinding = CardNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -18,7 +17,9 @@ class NewsAdapter : ListAdapter<Articles, Holder>(Comparator()) {
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), listener)
+//        holder.itemView.setOnClickListener { listener.onClick() }
+
     }
 }
 
@@ -33,9 +34,21 @@ class Comparator : DiffUtil.ItemCallback<Articles>(){
 }
 
 class Holder(private val binding: CardNewsBinding) : RecyclerView.ViewHolder(binding.root){
-    fun bind (item: Articles) = with(binding) {
+    fun bind (item: Articles, listener: Listener) = with(binding) {
         newsImage.load(item.urlToImage)
         newsTitle.text = item.title
         newsDesc.text = item.description
+        itemView.setOnClickListener {
+            listener.onClick(item)
+        }
+
+//        listener.onClick {
+//            onItemClickListener?.let { it(item) }
+//        }
     }
+
+//    private var onItemClickListener: ((Articles) -> Unit)? = null
+//    fun onClick(lis: (Articles) -> Unit){
+//        onItemClickListener = lis
+//    }
 }
