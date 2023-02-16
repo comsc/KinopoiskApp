@@ -1,6 +1,7 @@
-package com.example.newsproject.api
+package com.example.newsproject.data.repository
 
-import com.example.newsproject.models.NewsList
+import com.example.newsproject.data.api.ApiService
+import com.example.newsproject.data.models.NewsList
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,9 +20,11 @@ class Repository {
     private val api: ApiService by lazy {
         retrofit.create(ApiService::class.java)
     }
-    suspend fun getNews(): NewsList  {
+    suspend fun getNews(): NewsList {
         return api.getNewsApi()
     }
+
+
 }
 
 

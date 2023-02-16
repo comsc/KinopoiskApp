@@ -1,8 +1,9 @@
-package com.example.newsproject
+package com.example.newsproject.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import com.example.newsproject.R
 import com.example.newsproject.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

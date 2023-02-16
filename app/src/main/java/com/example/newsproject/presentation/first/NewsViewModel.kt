@@ -1,17 +1,13 @@
-package com.example.newsproject
+package com.example.newsproject.presentation.first
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsproject.api.Repository
-import com.example.newsproject.models.NewsList
+import com.example.newsproject.data.repository.Repository
+import com.example.newsproject.data.models.NewsList
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
