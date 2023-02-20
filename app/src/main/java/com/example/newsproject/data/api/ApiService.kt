@@ -1,7 +1,7 @@
-package com.example.newsproject.api
+package com.example.newsproject.data.api
 
 
-import com.example.newsproject.models.NewsList
+import com.example.newsproject.data.models.NewsList
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
