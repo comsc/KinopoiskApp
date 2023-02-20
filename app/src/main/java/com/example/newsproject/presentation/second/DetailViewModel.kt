@@ -13,8 +13,8 @@ import com.example.newsproject.data.models.Articles
 import com.example.newsproject.data.repository.Repository
 import com.example.newsproject.data.repository.RepositoryRoom
 import com.example.newsproject.presentation.first.NewsViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
 
 class DetailViewModel(application: Application): AndroidViewModel(application) {
 
@@ -27,21 +27,35 @@ class DetailViewModel(application: Application): AndroidViewModel(application) {
 
     private val repo: RepositoryRoom
     val context = application
+    //var exists:Boolean = false
+
 
     init {
         val dao = MainDb.getDb(context).getDao()
         repo = RepositoryRoom(dao)
         allArt = repo.getAllFavoriteArticles()
         Log.d("MyTag", "init ${DetailViewModel::class.java.simpleName}")
-        getSavedArticles()
+//        getSavedArticles()
         allArticles = allArt
     }
 
     private fun getSavedArticles() = viewModelScope.launch ( Dispatchers.IO ){
-        repo.getAllFavoriteArticles()
+       repo.getAllFavoriteArticles()
+
     }
     fun saveFavoriteArticle(item:Articles) = viewModelScope.launch (Dispatchers.IO){
         repo.addFavoriteArticle(item)
     }
 
+    fun deleteFavoriteArticle(item: Articles) = viewModelScope.launch (Dispatchers.IO){
+        repo.delFromFavorite(item)
+    }
+
+
+
+     suspend fun boolTitleFavorite(title:String?): Boolean = viewModelScope.async(Dispatchers.IO){
+        return@async repo.getTitleArticle(title)
+    }.await()
+
+//    fun boolTitleFavorite(title:String?): Boolean = repo.getTitleArticle(title)
 }

@@ -23,7 +23,7 @@ class NewsViewModel : ViewModel() {
         getNewsData()
     }
 
-    fun getNewsData() {
+    private fun getNewsData() {
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {

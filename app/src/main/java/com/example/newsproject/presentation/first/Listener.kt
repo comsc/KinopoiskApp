@@ -6,4 +6,10 @@ interface Listener {
 
     fun onClick(item: Articles)
 
+    fun adFavoriteOnRc(item: Articles)
+
+    fun delFavoriteOnRc(item: Articles)
+
+    suspend fun boolInTitle(title: String?):Boolean
+
 }

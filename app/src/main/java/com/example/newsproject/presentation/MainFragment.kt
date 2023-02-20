@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewPager = binding.viewPager2
-        val adapter = ViewPagerAdapter(this, fragList)
+        val adapter = ViewPagerAdapter(this, fragList as List<Fragment>)
         viewPager.adapter = adapter
         TabLayoutMediator(binding.tabsL, binding.viewPager2){
             tab, pos -> tab.text = fragtitles[pos]

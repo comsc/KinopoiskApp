@@ -54,7 +54,7 @@ dependencies {
     /** Coil */
     implementation "io.coil-kt:coil:1.4.0"
     implementation "io.coil-kt:coil-svg:1.4.0"
-
+    // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
@@ -67,8 +67,10 @@ dependencies {
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     // Navigation Components
-    def navVersion = "2.4.2"
-    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+//    def navVersion = "2.4.2"
+//    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+//    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+
+
 
 }

@@ -11,9 +11,9 @@ import androidx.navigation.findNavController
 import com.example.newsproject.R
 import com.example.newsproject.databinding.FragmentFirstBinding
 import com.example.newsproject.data.models.Articles
-import com.example.newsproject.data.models.NewsList
-import com.example.newsproject.presentation.favorite.FavoriteFragment
 import com.example.newsproject.presentation.first.adatper.NewsAdapter
+import com.example.newsproject.presentation.second.DetailViewModel
+
 
 class FirstFragment : Fragment(), Listener {
 
@@ -21,8 +21,10 @@ class FirstFragment : Fragment(), Listener {
     private val adapter: NewsAdapter by lazy { NewsAdapter(this) }
     // This property is only valid between onCreateView and
     // onDestroyView.
+
     private val binding get() = _binding!!
     private val viewModel by viewModels<NewsViewModel>()
+    private val viewModelDetail by viewModels<DetailViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +42,7 @@ class FirstFragment : Fragment(), Listener {
         viewModel.myNewsList.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list?.articles)
         }
+
     }
 
     private fun initRcView() = with(binding) {
@@ -51,6 +54,19 @@ class FirstFragment : Fragment(), Listener {
         val bundle = bundleOf("article" to item)
         view?.findNavController()?.navigate(R.id.action_mainFragment_to_SecondFragment, bundle)
     }
+
+    override fun adFavoriteOnRc(item: Articles) {
+        viewModelDetail.saveFavoriteArticle(item)
+    }
+
+    override fun delFavoriteOnRc(item: Articles) {
+        viewModelDetail.deleteFavoriteArticle(item)
+    }
+
+    override suspend fun boolInTitle(title:String?):Boolean {
+        return viewModelDetail.boolTitleFavorite(title)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
