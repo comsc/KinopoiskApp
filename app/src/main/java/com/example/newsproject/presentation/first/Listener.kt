@@ -12,4 +12,8 @@ interface Listener {
 
     suspend fun boolInTitle(title: String?):Boolean
 
+    fun showToast()
+
+    fun searchItem(title: String?)
+
 }

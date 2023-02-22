@@ -1,20 +1,16 @@
 package com.example.newsproject.presentation.second
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsproject.data.db.MainDb
 import com.example.newsproject.data.models.Articles
-import com.example.newsproject.data.repository.Repository
 import com.example.newsproject.data.repository.RepositoryRoom
-import com.example.newsproject.presentation.first.NewsViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
 
 class DetailViewModel(application: Application): AndroidViewModel(application) {
 
@@ -36,13 +32,14 @@ class DetailViewModel(application: Application): AndroidViewModel(application) {
         allArt = repo.getAllFavoriteArticles()
         Log.d("MyTag", "init ${DetailViewModel::class.java.simpleName}")
 //        getSavedArticles()
-        allArticles = allArt
+       allArticles = allArt
     }
 
-    private fun getSavedArticles() = viewModelScope.launch ( Dispatchers.IO ){
-       repo.getAllFavoriteArticles()
-
-    }
+//    private fun getSavedArticles() = viewModelScope.launch ( Dispatchers.IO ){
+//       val response = repo.getAllFavoriteArticles()
+//        allArt.value = response
+//
+//    }
     fun saveFavoriteArticle(item:Articles) = viewModelScope.launch (Dispatchers.IO){
         repo.addFavoriteArticle(item)
     }
@@ -56,6 +53,14 @@ class DetailViewModel(application: Application): AndroidViewModel(application) {
      suspend fun boolTitleFavorite(title:String?): Boolean = viewModelScope.async(Dispatchers.IO){
         return@async repo.getTitleArticle(title)
     }.await()
+
+    fun showToastContext(){
+        Toast.makeText(context, "Добавлено в избранное", Toast.LENGTH_LONG).show()
+    }
+
+    fun searchItem(title: String?) = viewModelScope.launch(Dispatchers.IO){
+        repo.delFromFavorite(repo.getSearchItem(title))
+    }
 
 //    fun boolTitleFavorite(title:String?): Boolean = repo.getTitleArticle(title)
 }

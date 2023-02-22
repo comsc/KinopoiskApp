@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import com.example.newsproject.databinding.FragmentMainBinding
 import com.example.newsproject.presentation.favorite.FavoriteFragment
 import com.example.newsproject.presentation.first.FirstFragment

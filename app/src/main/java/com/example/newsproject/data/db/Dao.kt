@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.newsproject.data.models.Articles
-import kotlinx.coroutines.flow.Flow
 
 @androidx.room.Dao
 interface Dao {
@@ -21,4 +20,7 @@ interface Dao {
 
     @Query("SELECT EXISTS (SELECT 1 FROM articles WHERE title = :title)")
     fun getTitle(title:String?): Boolean
+
+    @Query("SELECT * FROM articles WHERE title = :title")
+    fun searchTitleItem(title: String?):Articles
 }

@@ -11,8 +11,6 @@ import com.example.newsproject.data.models.Articles
 import com.example.newsproject.databinding.CardNewsBinding
 import com.example.newsproject.presentation.first.Listener
 import com.example.newsproject.utils.DateUtils
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class AdapterFavorite(private val listener: Listener): ListAdapter<Articles, HolderFavorite>(Comparator){
 

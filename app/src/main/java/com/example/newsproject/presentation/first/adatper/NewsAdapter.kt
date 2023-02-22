@@ -1,10 +1,7 @@
 package com.example.newsproject.presentation.first.adatper
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,10 +9,6 @@ import coil.load
 import com.example.newsproject.R
 import com.example.newsproject.databinding.CardNewsBinding
 import com.example.newsproject.data.models.Articles
-import com.example.newsproject.databinding.FragmentFavoriteBinding
-import com.example.newsproject.databinding.FragmentFirstBinding
-import com.example.newsproject.presentation.MainFragment
-import com.example.newsproject.presentation.first.FirstFragment
 import com.example.newsproject.presentation.first.Listener
 import com.example.newsproject.utils.DateUtils
 import kotlinx.coroutines.*
@@ -52,18 +45,20 @@ fun bind (item: Articles, listener: Listener) = with(binding) {
         newsDesc.text = item.description
         newsDate.text = item.publishedAt?.let { DateUtils.toDefaultDate(it) }
         itemView.setOnClickListener { listener.onClick(item) }
-
         GlobalScope.launch { val exists = listener.boolInTitle(title = item.title)
         if (exists) { favoriteImg.setImageResource(R.drawable.favorite_on) } }
 
         favoriteImg.setOnClickListener{
             GlobalScope.launch {
                 val exists = listener.boolInTitle(title = item.title)
-                if(exists) {listener.delFavoriteOnRc(item)
-                    favoriteImg.setImageResource(R.drawable.favorite_off) }
+                if(exists) {favoriteImg.setImageResource(R.drawable.favorite_off)
+                    listener.searchItem(item.title)
+                    delay(1000L)}
                 else {favoriteImg.setImageResource(R.drawable.favorite_on)
-                    listener.adFavoriteOnRc(item) }
+                    listener.adFavoriteOnRc(item)
+                    }
             }
+            listener.showToast()
         }
 
     }

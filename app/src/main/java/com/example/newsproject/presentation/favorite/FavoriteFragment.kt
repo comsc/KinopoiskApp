@@ -21,7 +21,7 @@ class FavoriteFragment : Fragment(), Listener {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<DetailViewModel>()
-    private val adapter: AdapterFavorite by lazy { AdapterFavorite(this) }
+    private val adapter:AdapterFavorite by lazy { AdapterFavorite(this) }
 
 
     override fun onCreateView(
@@ -39,7 +39,6 @@ class FavoriteFragment : Fragment(), Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcFavorite()
-
         viewModel.allArticles.observe(viewLifecycleOwner) {
             list ->
             adapter.submitList(list.asReversed())
@@ -66,7 +65,15 @@ class FavoriteFragment : Fragment(), Listener {
     }
 
     override suspend fun boolInTitle(title: String?): Boolean {
-        TODO("Not yet implemented")
+        return viewModel.boolTitleFavorite(title)
+    }
+
+    override fun showToast() {
+        viewModel.showToastContext()
+    }
+
+    override fun searchItem(title: String?) {
+        viewModel.searchItem(title)
     }
 
 }

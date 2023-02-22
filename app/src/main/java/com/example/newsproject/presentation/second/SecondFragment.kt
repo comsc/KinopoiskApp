@@ -52,12 +52,23 @@ class SecondFragment : Fragment(), CoroutineScope by MainScope() {
             }
             launch {
                val exists =  viewModel.boolTitleFavorite(title = article.title)
-                if (exists) {binding.favoriteOffDetail.setImageResource(R.drawable.favorite_on)
-                binding.favoriteOffDetail.setOnClickListener {
-                    viewModel.deleteFavoriteArticle(article)
-                    binding.favoriteOffDetail.setImageResource(R.drawable.favorite_off)
-                }}
-                else {binding.favoriteOffDetail.setImageResource(R.drawable.favorite_off)}}
+                if (exists) {binding.favoriteOffDetail.setImageResource(R.drawable.favorite_on)}
+                else {binding.favoriteOffDetail.setImageResource(R.drawable.favorite_off)}
+            }
+
+            binding.favoriteOffDetail.setOnClickListener {
+                    launch {
+                    val exists2 =  viewModel.boolTitleFavorite(title = article.title)
+                    if (exists2){
+                    viewModel.searchItem(article.title)
+                    binding.favoriteOffDetail.setImageResource(R.drawable.favorite_off)}
+                    else{
+                        viewModel.saveFavoriteArticle(article)
+                        binding.favoriteOffDetail.setImageResource(R.drawable.favorite_on)
+                        }
+                    }
+            }
+
         }
 
 

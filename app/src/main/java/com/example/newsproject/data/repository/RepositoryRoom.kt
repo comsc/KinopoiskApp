@@ -20,4 +20,6 @@ class RepositoryRoom(private val dao: Dao) {
 
     fun getTitleArticle(title:String?):Boolean = dao.getTitle(title)
 
+    fun getSearchItem(title: String?) = dao.searchTitleItem(title)
+
 }

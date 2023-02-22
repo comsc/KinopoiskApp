@@ -11,16 +11,13 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.NewsProject.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
 
-    </style>
+<!--    <style name="Theme.NewsProject.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark" />-->
 
-    <style name="Theme.NewsProject.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark" />
-
-    <style name="Theme.NewsProject.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+<!--    <style name="Theme.NewsProject.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 </resources>

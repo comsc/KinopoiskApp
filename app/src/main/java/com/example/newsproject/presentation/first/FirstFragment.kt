@@ -1,16 +1,20 @@
 package com.example.newsproject.presentation.first
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsproject.R
 import com.example.newsproject.databinding.FragmentFirstBinding
 import com.example.newsproject.data.models.Articles
+import com.example.newsproject.presentation.MainFragment
 import com.example.newsproject.presentation.first.adatper.NewsAdapter
 import com.example.newsproject.presentation.second.DetailViewModel
 
@@ -65,6 +69,14 @@ class FirstFragment : Fragment(), Listener {
 
     override suspend fun boolInTitle(title:String?):Boolean {
         return viewModelDetail.boolTitleFavorite(title)
+    }
+
+    override fun showToast() {
+        viewModelDetail.showToastContext()
+    }
+
+    override fun searchItem(title: String?) {
+        viewModelDetail.searchItem(title)
     }
 
     override fun onDestroyView() {
