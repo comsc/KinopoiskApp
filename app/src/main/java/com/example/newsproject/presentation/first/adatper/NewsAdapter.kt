@@ -37,7 +37,6 @@ private object Comparator : DiffUtil.ItemCallback<Articles>(){
 }
 
 class Holder(private val binding: CardNewsBinding) : RecyclerView.ViewHolder(binding.root){
-
 @OptIn(DelicateCoroutinesApi::class)
 fun bind (item: Articles, listener: Listener) = with(binding) {
         newsImage.load(item.urlToImage)
@@ -45,20 +44,22 @@ fun bind (item: Articles, listener: Listener) = with(binding) {
         newsDesc.text = item.description
         newsDate.text = item.publishedAt?.let { DateUtils.toDefaultDate(it) }
         itemView.setOnClickListener { listener.onClick(item) }
-        GlobalScope.launch { val exists = listener.boolInTitle(title = item.title)
+        GlobalScope.launch(Dispatchers.Main) { val exists = listener.boolInTitle(title = item.title)
         if (exists) { favoriteImg.setImageResource(R.drawable.favorite_on) } }
 
         favoriteImg.setOnClickListener{
-            GlobalScope.launch {
+            GlobalScope.launch(Dispatchers.Main) {
                 val exists = listener.boolInTitle(title = item.title)
                 if(exists) {favoriteImg.setImageResource(R.drawable.favorite_off)
                     listener.searchItem(item.title)
+                    listener.showToast(toast = false)
                     delay(1000L)}
                 else {favoriteImg.setImageResource(R.drawable.favorite_on)
                     listener.adFavoriteOnRc(item)
+                    listener.showToast(toast = true)
                     }
             }
-            listener.showToast()
+
         }
 
     }

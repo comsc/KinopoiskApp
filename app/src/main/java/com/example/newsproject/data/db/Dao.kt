@@ -9,7 +9,7 @@ import com.example.newsproject.data.models.Articles
 
 @androidx.room.Dao
 interface Dao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item:Articles)
 
     @Delete

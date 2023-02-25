@@ -1,6 +1,8 @@
 package com.example.newsproject.presentation.first
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,7 +25,7 @@ class NewsViewModel : ViewModel() {
         getNewsData()
     }
 
-    private fun getNewsData() {
+    fun getNewsData() {
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {

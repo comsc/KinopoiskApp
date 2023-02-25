@@ -1,20 +1,17 @@
 package com.example.newsproject.presentation.first
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsproject.R
 import com.example.newsproject.databinding.FragmentFirstBinding
 import com.example.newsproject.data.models.Articles
-import com.example.newsproject.presentation.MainFragment
 import com.example.newsproject.presentation.first.adatper.NewsAdapter
 import com.example.newsproject.presentation.second.DetailViewModel
 
@@ -28,7 +25,11 @@ class FirstFragment : Fragment(), Listener {
 
     private val binding get() = _binding!!
     private val viewModel by viewModels<NewsViewModel>()
-    private val viewModelDetail by viewModels<DetailViewModel>()
+//    private lateinit var viewModelDetail: DetailViewModel
+//    private val viewModel: NewsViewModel by viewModels()
+    private val viewModelDetail: DetailViewModel by viewModels()
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,8 +72,8 @@ class FirstFragment : Fragment(), Listener {
         return viewModelDetail.boolTitleFavorite(title)
     }
 
-    override fun showToast() {
-        viewModelDetail.showToastContext()
+    override fun showToast(toast:Boolean) {
+        viewModelDetail.showToastContext(toast)
     }
 
     override fun searchItem(title: String?) {

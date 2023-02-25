@@ -10,11 +10,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val navController by lazy {
-        (supportFragmentManager
-            .findFragmentById(
-                R.id.nav_host_fragment_content_main
-            ) as NavHostFragment
-                ).navController
+        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main)
+                as NavHostFragment).navController
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
