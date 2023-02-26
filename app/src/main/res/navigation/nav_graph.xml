@@ -6,25 +6,19 @@
     app:startDestination="@id/mainFragment">
 
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.newsproject.presentation.second.SecondFragment"
-        android:label="@string/second_fragment_label"
+        android:id="@+id/DetailArticleFragment"
+        android:name="com.example.newsproject.presentation.second.DetailArticleFragment"
         tools:layout="@layout/fragment_second">
         <argument
             android:name="article"
-            app:argType="com.example.newsproject.data.models.Articles" />
+            app:argType="com.example.newsproject.data.models.Article" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.newsproject.presentation.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_mainFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment"
-            app:enterAnim="@android:anim/slide_out_right"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            android:id="@+id/action_mainFragment_to_DetailArticleFragment"
+            app:destination="@id/DetailArticleFragment" />
     </fragment>
 </navigation>

@@ -7,7 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class Repository {
+class RemoteRepository {
 
     private val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://newsapi.org")

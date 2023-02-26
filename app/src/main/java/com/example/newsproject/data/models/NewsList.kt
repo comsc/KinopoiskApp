@@ -1,7 +1,7 @@
 package com.example.newsproject.data.models
 
 data class NewsList(
-    val articles: List<Articles>?,
+    val articles: List<Article>?,
     val status: String?,
     val totalResults: Int?
 )
