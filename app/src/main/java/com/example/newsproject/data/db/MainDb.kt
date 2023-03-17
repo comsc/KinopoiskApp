@@ -1,18 +1,17 @@
 package com.example.newsproject.data.db
 
 import android.content.Context
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.AutoMigrationSpec
-import com.example.newsproject.data.models.Article
+import com.example.newsproject.data.models.Doc
 
-@Database(entities = [Article::class], version = 4)
+@Database(entities = [Doc::class], version = 4, exportSchema = false)
 abstract class MainDb : RoomDatabase() {
     abstract fun getDao(): ArticleDao
 
     companion object {
+        @Volatile
         private var database: MainDb? = null
 
         @Synchronized

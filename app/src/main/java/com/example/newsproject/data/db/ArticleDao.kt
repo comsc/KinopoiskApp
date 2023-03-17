@@ -3,28 +3,28 @@ package com.example.newsproject.data.db
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.newsproject.data.models.Article
+import com.example.newsproject.data.models.Doc
 
-@androidx.room.Dao
+@Dao
 interface ArticleDao {
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun update(item: Article)
+//    @Update(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun update(item: Doc)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(item: Article)
+    @Insert( entity = Doc::class, onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(item: Doc)
 
-    @Delete
-    suspend fun delete(item: Article)
+    @Delete(entity = Doc::class)
+    suspend fun delete(item: Doc)
 
-    @Query("SELECT * FROM articles")
-    fun getAllArticles(): LiveData<List<Article>>
+    @Query("SELECT * FROM movies")
+    fun getFavoriteGiphy(): LiveData<List<Doc>>
+//    @Query("SELECT EXISTS (SELECT 1 FROM articles WHERE title = :title)")
+//    fun isNoteEmptyArticle(title: String?): Boolean
 
-    @Query("SELECT EXISTS (SELECT 1 FROM articles WHERE title = :title)")
-    fun isNoteEmptyArticle(title: String?): Boolean
-
-    @Query("SELECT * FROM articles WHERE title = :title")
-    fun getArticle(title: String?): Article
-
-    @Query("SELECT COUNT(*) FROM articles")
-    fun countArticles(): Int
+//    @Query("SELECT * FROM articles WHERE title = :title")
+//    fun getArticle(title: String?): Article
+//
+//    @Query("SELECT COUNT(*) FROM articles")
+//    fun countArticles(): Int
 }

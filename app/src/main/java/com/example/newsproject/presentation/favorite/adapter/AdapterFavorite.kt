@@ -5,16 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.bumptech.glide.Glide
 import com.example.newsproject.R
-import com.example.newsproject.data.models.Article
+import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.CardNewsBinding
-import com.example.newsproject.utils.DateUtils
 
 class AdapterFavorite(
-    private val onClickItemListener: (Article) -> Unit,
-    private val deleteItemFavorite: (Article) -> Unit
-) : ListAdapter<Article, HolderFavorite>(Comparator) {
+    private val onClickItemListener: (Doc) -> Unit,
+    private val deleteItemFavorite: (Doc) -> Unit
+) : ListAdapter<Doc, HolderFavorite>(Comparator) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderFavorite {
@@ -29,12 +28,12 @@ class AdapterFavorite(
 
 }
 
-private object Comparator : DiffUtil.ItemCallback<Article>() {
-    override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-        return oldItem.title == newItem.title  //здесь нужно сравнивть по уникальному.id
+private object Comparator : DiffUtil.ItemCallback<Doc>() {
+    override fun areItemsTheSame(oldItem: Doc, newItem: Doc): Boolean {
+        return oldItem.id == newItem.id  //здесь нужно сравнивть по уникальному.id
     }
 
-    override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+    override fun areContentsTheSame(oldItem: Doc, newItem: Doc): Boolean {
         return oldItem == newItem
     }
 
@@ -42,17 +41,14 @@ private object Comparator : DiffUtil.ItemCallback<Article>() {
 
 class HolderFavorite(private val binding: CardNewsBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(
-        item: Article,
-        onClickItemListener: (Article) -> Unit,
-        deleteItemFavorite: (Article) -> Unit
+        item: Doc,
+        onClickItemListener: (Doc) -> Unit,
+        deleteItemFavorite: (Doc) -> Unit
     ) {
         with(binding) {
-            newsImage.load(item.urlToImage)
-            newsTitle.text = item.title
-            newsDesc.text = item.description
-            newsDate.text = item.publishedAt?.let { DateUtils.toDefaultDate(it) }
-            favoriteImg.setImageResource(R.drawable.favorite_on)
-            favoriteImg.setOnClickListener { deleteItemFavorite.invoke(item) }
+            Glide.with(itemView).load(item.poster?.previewUrl).into(newsImage)
+            favoriteIconOff.setImageResource(R.drawable.favorite_on)
+            favoriteIconOff.setOnClickListener { deleteItemFavorite.invoke(item) }
             itemView.setOnClickListener { onClickItemListener.invoke(item) }
         }
     }

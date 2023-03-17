@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsproject.R
-import com.example.newsproject.data.models.Article
+import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.FragmentFavoriteBinding
 import com.example.newsproject.presentation.favorite.adapter.AdapterFavorite
 
@@ -64,8 +64,8 @@ class FavoriteFragment : Fragment() {
         recyclerFavorite.adapter = adapter
     }
 
-    private fun navigateToDetailFragment(item: Article) {
-        val bundle = bundleOf("article" to item)
-        findNavController().navigate(R.id.action_mainFragment_to_DetailArticleFragment, bundle)
+    private fun navigateToDetailFragment(item: Doc) {
+        val bundle = bundleOf("data" to item)
+        findNavController().navigate(R.id.action_favoriteFragment_to_DetailArticleFragment, bundle)
     }
 }

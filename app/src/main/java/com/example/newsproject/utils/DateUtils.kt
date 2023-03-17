@@ -7,7 +7,7 @@ object DateUtils {
  // 2023-02-13T12:00:05Z
     const val isoDateType = "yyyy-MM-dd'T'HH:mm:ss"
     const val defaultDateType = "dd.MM.yyyy"
-    private val calendar = Calendar.getInstance()
+    //private val calendar = Calendar.getInstance()
 
     fun toDefaultDate(text: String): String? {
         val from = SimpleDateFormat(isoDateType)

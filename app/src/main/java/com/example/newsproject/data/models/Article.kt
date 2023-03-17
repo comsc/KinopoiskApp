@@ -2,7 +2,7 @@ package com.example.newsproject.data.models
 
 import androidx.room.Entity
 
-@Entity(tableName = "articles", primaryKeys = ["title"])
+//@Entity(tableName = "articles", primaryKeys = ["title"])
 data class Article(
     val title: String = "",
     val author: String?,

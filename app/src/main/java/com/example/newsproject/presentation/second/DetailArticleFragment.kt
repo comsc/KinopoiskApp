@@ -8,11 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import coil.load
+import com.bumptech.glide.Glide
 import com.example.newsproject.R
-import com.example.newsproject.data.models.Article
+import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.FragmentSecondBinding
-import com.example.newsproject.utils.DateUtils
 
 class DetailArticleFragment : Fragment() {
 
@@ -35,7 +34,7 @@ class DetailArticleFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.setDetail(bundleArgs.article)
+        viewModel.setDetail(bundleArgs.data)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,12 +60,10 @@ class DetailArticleFragment : Fragment() {
         }
     }
 
-    private fun showInfo(article: Article) {
+    private fun showInfo(article: Doc) {
         with(binding) {
-            newsDateDetail.text = article.publishedAt?.let { DateUtils.toDefaultDate(it) }
-            newsTitleDetail.text = article.title
-            newsImageDetail.load(article.urlToImage)
-            newsDescDetail.text = article.description
+            context?.let { Glide.with(it).load(article.poster?.url).into(newsImageDetail) }
+            newsTitleDetail.text = article.name
             favoriteOffDetail.setImageResource(
                 if (article.isFavorite) {
                     R.drawable.favorite_on
@@ -74,7 +71,7 @@ class DetailArticleFragment : Fragment() {
                     R.drawable.favorite_off
                 }
             )
-        }
+       }
     }
 
     override fun onDestroyView() {

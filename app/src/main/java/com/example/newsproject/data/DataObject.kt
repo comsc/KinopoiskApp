@@ -13,7 +13,7 @@ object DataObject {
 
     fun initData(context: Context) {
         dataBase = MainDb.getDb(context)
-        remoteRepository = RemoteRepository()
+        remoteRepository = RemoteRepository(context)
         localRepository = LocalRepository(dataBase.getDao())
     }
 }

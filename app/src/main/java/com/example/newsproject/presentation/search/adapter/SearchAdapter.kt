@@ -1,4 +1,4 @@
-package com.example.newsproject.presentation.first.adatper
+package com.example.newsproject.presentation.search.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.CardNewsBinding
 import com.example.newsproject.presentation.first.Listener
 
-class NewsAdapter(
+class SearchAdapter(
     private val listener: Listener
 ) : ListAdapter<Doc, Holder>(Comparator) {
 

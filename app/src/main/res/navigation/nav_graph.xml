@@ -10,8 +10,8 @@
         android:name="com.example.newsproject.presentation.second.DetailArticleFragment"
         tools:layout="@layout/fragment_second">
         <argument
-            android:name="article"
-            app:argType="com.example.newsproject.data.models.Article" />
+            android:name="data"
+            app:argType="com.example.newsproject.data.models.Doc" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -19,6 +19,24 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_DetailArticleFragment"
+            app:destination="@id/DetailArticleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.newsproject.presentation.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_DetailArticleFragment"
+            app:destination="@id/DetailArticleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.newsproject.presentation.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_DetailArticleFragment"
             app:destination="@id/DetailArticleFragment" />
     </fragment>
 </navigation>
