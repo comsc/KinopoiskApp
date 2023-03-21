@@ -41,7 +41,9 @@ class Holder(private val binding: CardNewsBinding) : RecyclerView.ViewHolder(bin
 
     fun bind(item: Doc, listener: Listener) {
         with(binding) {
-            Glide.with(itemView).load(item.poster?.previewUrl).into(newsImage)
+            Glide.with(itemView).load(item.poster?.previewUrl).into(movieImageBg)
+            Glide.with(itemView).load(item.poster?.previewUrl).into(movieImagePoster)
+
             itemView.setOnClickListener { listener.onClick(item) }
             favoriteIconOff.setOnClickListener {
                 if (item.isFavorite) {

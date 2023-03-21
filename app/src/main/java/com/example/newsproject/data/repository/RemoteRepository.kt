@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.example.newsproject.data.api.ApiService
 import com.example.newsproject.data.models.Kinopoisk
+import com.example.newsproject.data.models.movie.Movie
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -32,6 +33,10 @@ class RemoteRepository(context: Context) {
     }
     suspend fun searchMovie(name:String): Kinopoisk{
         return api.searchMovieApi(name = name)
+    }
+
+    suspend fun movieId(movieId:String):Movie{
+        return api.movieId(movieId = movieId)
     }
 
 

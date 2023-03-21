@@ -56,10 +56,6 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
-//        binding.editText.addTextChangedListener {
-//            viewModel.getNewsData(it.toString()) }
-
-
         viewModel.articles.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
         }

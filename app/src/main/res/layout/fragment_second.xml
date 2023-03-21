@@ -4,20 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1E1D1D"
+    android:background="#1D1D1D"
     tools:context=".presentation.second.DetailArticleFragment">
 
     <ImageView
-        android:id="@+id/news_image_detail"
+        android:id="@+id/movie_image_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="false"
-        android:alpha="0.5"
+        android:alpha="0.1"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardPoster"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginVertical="20dp"
+        app:cardCornerRadius="20dp">
+
+        <ImageView
+            android:id="@+id/imagePosterDetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:src="@tools:sample/avatars" />
+    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/button_back"
@@ -27,6 +45,36 @@
         android:src="@drawable/back_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_star_rate"
+        android:layout_marginTop="55dp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/movieRatingKp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        tools:text="KP:5.5"
+        android:layout_marginVertical="80dp"
+        android:layout_marginHorizontal="20dp"/>
+    <TextView
+        android:id="@+id/movieRatingImdb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        tools:text="ImDB:5.5"
+        android:layout_marginVertical="100dp"
+        android:layout_marginHorizontal="20dp"/>
 
     <ImageView
         android:id="@+id/favorite_off_detail"
@@ -38,19 +86,42 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/news_title_detail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/movie_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginBottom="16dp"
-        android:layout_weight="0.9"
-        android:gravity="bottom|center"
         android:textColor="#F1EFEF"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/news_image_detail"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@+id/cardPoster"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Title" />
+    <TextView
+        android:id="@+id/movie_desc_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="#F1EFEF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/movie_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Description" />
+
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/playerDetail"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:elevation="4dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/movie_desc_detail" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

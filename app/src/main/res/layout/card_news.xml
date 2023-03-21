@@ -13,14 +13,30 @@
     app:cardElevation="5dp">
 
     <ImageView
-        android:id="@+id/news_image"
+        android:id="@+id/movie_image_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="false"
-        android:alpha="0.9"
+        android:alpha="0.1"
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
         tools:src="@tools:sample/backgrounds/scenic" />
+
+    <ImageView
+        android:id="@+id/movieImagePoster"
+        android:layout_width="160dp"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/movieTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:text="Название фильма" />
 
     <ImageView
         android:id="@+id/favorite_icon_off"
@@ -29,6 +45,7 @@
         android:layout_gravity="right"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        app:srcCompat="@drawable/favorite_off" />
+        app:srcCompat="@drawable/favorite_off"
+        app:tint="#F1EBEB" />
 
 </androidx.cardview.widget.CardView>

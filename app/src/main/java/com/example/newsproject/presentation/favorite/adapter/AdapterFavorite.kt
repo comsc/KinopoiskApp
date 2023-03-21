@@ -46,7 +46,9 @@ class HolderFavorite(private val binding: CardNewsBinding) : RecyclerView.ViewHo
         deleteItemFavorite: (Doc) -> Unit
     ) {
         with(binding) {
-            Glide.with(itemView).load(item.poster?.previewUrl).into(newsImage)
+            Glide.with(itemView).load(item.poster?.previewUrl).into(movieImageBg)
+            Glide.with(itemView).load(item.poster?.previewUrl).into(movieImagePoster)
+
             favoriteIconOff.setImageResource(R.drawable.favorite_on)
             favoriteIconOff.setOnClickListener { deleteItemFavorite.invoke(item) }
             itemView.setOnClickListener { onClickItemListener.invoke(item) }
