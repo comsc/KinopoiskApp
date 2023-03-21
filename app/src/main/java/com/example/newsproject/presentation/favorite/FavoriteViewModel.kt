@@ -11,9 +11,9 @@ class FavoriteViewModel : ViewModel() {
 
     private val localRepository: LocalRepository = DataObject.localRepository
 
-    val favoriteArticles = localRepository.getFavoiteGiphyFromDb()
+    val favoriteArticles = localRepository.getFavoriteMoviesFromDb()
 
-    fun deleteFavorite(article: Doc) = viewModelScope.launch {
-        localRepository.removeArticle(article)
+    fun deleteFavorite(movie: Doc) = viewModelScope.launch {
+        localRepository.removeMovieFromDb(movie)
     }
 }

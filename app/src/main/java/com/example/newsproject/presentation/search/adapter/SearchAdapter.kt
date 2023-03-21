@@ -1,5 +1,6 @@
 package com.example.newsproject.presentation.search.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -39,10 +40,17 @@ private object Comparator : DiffUtil.ItemCallback<Doc>() {
 
 class Holder(private val binding: CardNewsBinding) : RecyclerView.ViewHolder(binding.root) {
 
+    @SuppressLint("SetTextI18n")
     fun bind(item: Doc, listener: Listener) {
         with(binding) {
             Glide.with(itemView).load(item.poster?.previewUrl).into(movieImageBg)
             Glide.with(itemView).load(item.poster?.previewUrl).into(movieImagePoster)
+            movieTitle.text = item.name
+            genreMovie.text = item.genres?.map { "${it.name}" }?.take(2).toString()
+            rateKp.text = "КП: ${item.rating?.kp}"
+            rateImdb.text = "ImDB: ${item.rating?.imdb}"
+            timeMovie.text = "${item.movieLength.toString()} минут"
+            yearMovie.text = "Год выпуска: ${item.year}"
 
             itemView.setOnClickListener { listener.onClick(item) }
             favoriteIconOff.setOnClickListener {

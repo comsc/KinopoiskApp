@@ -29,7 +29,7 @@ interface ApiService {
     ):Kinopoisk
 
     @GET("/v1/movie/{movieId}")
-    suspend fun movieId(
+    suspend fun searchMovieById(
         @Header("accept") accept: String = "application/json",
         @Header("X-API-KEY") apikey: String = ObjectConst.API_KEY,
         @Path("movieId") movieId:String

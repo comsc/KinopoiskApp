@@ -1,18 +1,18 @@
 package com.example.newsproject.data.repository
 
 import androidx.lifecycle.LiveData
-import com.example.newsproject.data.db.ArticleDao
+import com.example.newsproject.data.db.MovieDao
 import com.example.newsproject.data.models.Doc
 
-class LocalRepository(private val dao: ArticleDao) {
+class LocalRepository(private val dao: MovieDao) {
 
-    fun getFavoiteGiphyFromDb(): LiveData<List<Doc>> = dao.getFavoriteGiphy()
+    fun getFavoriteMoviesFromDb(): LiveData<List<Doc>> = dao.getFavoriteMovie()
 
-    suspend fun addArticle(item: Doc) {
+    suspend fun addMovieToDb(item: Doc) {
         dao.insert(item)
     }
 
-    suspend fun removeArticle(item: Doc) {
+    suspend fun removeMovieFromDb(item: Doc) {
         dao.delete(item)
     }
 

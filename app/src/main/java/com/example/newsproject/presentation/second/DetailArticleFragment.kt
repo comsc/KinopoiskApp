@@ -3,7 +3,6 @@ package com.example.newsproject.presentation.second
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,7 +73,6 @@ class DetailArticleFragment : Fragment(){
                 viewModel.movies.observe(viewLifecycleOwner){
                     if (it.videos?.trailers?.isNotEmpty() == true){
                     val videoId = it.videos.trailers.let { it1 -> getUrlTrailers(it1) }
-                        Log.d("MyTag","$videoId")
                     videoId?.let { youTubePlayer.cueVideo(videoId,0f) }}
                     else binding.playerDetail.isVisible = false
                 }

@@ -45,7 +45,7 @@ class DetailViewModel: ViewModel() {
         val actualArticle = article.copy(isFavorite = true)
         setDetail(actualArticle)
         viewModelScope.launch {
-            localRepository.addArticle(actualArticle)
+            localRepository.addMovieToDb(actualArticle)
         }
     }
 
@@ -53,7 +53,7 @@ class DetailViewModel: ViewModel() {
         val actualArticle = article.copy(isFavorite = false)
         setDetail(actualArticle)
         viewModelScope.launch {
-            localRepository.removeArticle(article.copy(isFavorite = true))
+            localRepository.removeMovieFromDb(article.copy(isFavorite = true))
         }
     }
 }

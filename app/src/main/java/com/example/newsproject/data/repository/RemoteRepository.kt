@@ -1,6 +1,5 @@
 package com.example.newsproject.data.repository
 
-import android.app.Application
 import android.content.Context
 import com.example.newsproject.data.api.ApiService
 import com.example.newsproject.data.models.Kinopoisk
@@ -36,7 +35,7 @@ class RemoteRepository(context: Context) {
     }
 
     suspend fun movieId(movieId:String):Movie{
-        return api.movieId(movieId = movieId)
+        return api.searchMovieById(movieId = movieId)
     }
 
 

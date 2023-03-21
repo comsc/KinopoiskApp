@@ -1,5 +1,6 @@
 package com.example.newsproject.presentation.favorite.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -40,6 +41,7 @@ private object Comparator : DiffUtil.ItemCallback<Doc>() {
 }
 
 class HolderFavorite(private val binding: CardNewsBinding) : RecyclerView.ViewHolder(binding.root) {
+    @SuppressLint("SetTextI18n")
     fun bind(
         item: Doc,
         onClickItemListener: (Doc) -> Unit,
@@ -48,6 +50,12 @@ class HolderFavorite(private val binding: CardNewsBinding) : RecyclerView.ViewHo
         with(binding) {
             Glide.with(itemView).load(item.poster?.previewUrl).into(movieImageBg)
             Glide.with(itemView).load(item.poster?.previewUrl).into(movieImagePoster)
+            movieTitle.text = item.name
+            genreMovie.text = item.genres?.map { "${it.name}" }?.take(2).toString()
+            rateKp.text = "КП: ${item.rating?.kp}"
+            rateImdb.text = "ImDB: ${item.rating?.imdb}"
+            timeMovie.text = "${item.movieLength.toString()} минут"
+            yearMovie.text = "Год выпуска: ${item.year}"
 
             favoriteIconOff.setImageResource(R.drawable.favorite_on)
             favoriteIconOff.setOnClickListener { deleteItemFavorite.invoke(item) }

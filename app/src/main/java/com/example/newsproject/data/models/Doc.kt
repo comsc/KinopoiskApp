@@ -3,8 +3,10 @@ package com.example.newsproject.data.models
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.newsproject.data.db.Converters
 import com.google.gson.annotations.SerializedName
-
+@TypeConverters(Converters::class)
 @Entity(tableName = "movies")
 data class Doc(
     val alternativeName: String?,
@@ -15,9 +17,9 @@ data class Doc(
     val description: String?,
     @Embedded
     val externalId: ExternalId?,
-    @SerializedName("genre_tbl")
-    @Embedded
-    val genres: Genre?,
+//    @SerializedName("genre_tbl")
+//    @Embedded
+    val genres: List<Genre>?,
     @PrimaryKey
     val id: Int?,
     @Embedded
@@ -36,5 +38,5 @@ data class Doc(
     @Embedded
     val votes: Votes?,
     val year: Int?,
-    var isFavorite: Boolean = false
+    var isFavorite: Boolean = false,
 ):java.io.Serializable

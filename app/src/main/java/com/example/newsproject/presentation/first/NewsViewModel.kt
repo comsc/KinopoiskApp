@@ -18,7 +18,7 @@ class NewsViewModel : ViewModel() {
     private val _articles = MutableLiveData<List<Doc>>()
     val articles = _articles.asLiveData()
 
-    val favoriteArticles = localRepository.getFavoiteGiphyFromDb()
+    val favoriteArticles = localRepository.getFavoriteMoviesFromDb()
 
     init {
         getMovieData()
@@ -48,7 +48,7 @@ class NewsViewModel : ViewModel() {
     }
 
     private fun deleteFavorite(article: Doc) = viewModelScope.launch {
-        localRepository.removeArticle(article)
+        localRepository.removeMovieFromDb(article)
         val oldList = _articles.value?.toMutableList()
         _articles.value =
             oldList?.map {
@@ -63,6 +63,6 @@ class NewsViewModel : ViewModel() {
     }
 
     private fun addFavorite(article: Doc) = viewModelScope.launch {
-        localRepository.addArticle(article.copy(isFavorite = true))
+        localRepository.addMovieToDb(article.copy(isFavorite = true))
     }
 }
