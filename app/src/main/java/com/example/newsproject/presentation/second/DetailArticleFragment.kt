@@ -110,7 +110,7 @@ class DetailArticleFragment : Fragment(){
             context?.let { Glide.with(it).load(movie.poster?.url).into(movieImageBackground) }
             context?.let { Glide.with(it).load(movie.poster?.url).into(imagePosterDetail) }
             movieTitle.text = movie.name
-            movieDescDetail.text = movie.description
+            movieDescDetail.text = movie.shortDescription
             movieRatingKp.text = "КП: ${movie.rating?.kp}"
             movieRatingImdb.text = "ImDB: ${movie.rating?.imdb}"
 
