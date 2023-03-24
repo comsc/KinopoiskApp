@@ -1,4 +1,4 @@
-package com.example.newsproject.presentation.first
+package com.example.newsproject.presentation.cartoons
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,24 +11,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class NewsViewModel : ViewModel() {
-
+class CartoonsViewModel:ViewModel() {
     private val remoteRepository = DataObject.remoteRepository
     private val localRepository = DataObject.localRepository
-
     private var _movies = MutableLiveData<Resource<List<Doc>>>()
-    val articles = _movies.asLiveData()
+    val movie = _movies.asLiveData()
 
     val favoriteArticles = localRepository.getFavoriteMoviesFromDb()
 
     init {
-        getMovieData(favoriteArticles.value)
+        getCartoonsData(favoriteArticles.value)
     }
 
-    fun getMovieData(list: List<Doc>?) = viewModelScope.launch {
+    fun getCartoonsData(list: List<Doc>?) = viewModelScope.launch {
         _movies.postValue(Resource.Loading())
         val response = withContext(Dispatchers.IO) {
-            remoteRepository.getMovie()
+            remoteRepository.getCartoons()
         }
 
         if (response.isSuccessful){

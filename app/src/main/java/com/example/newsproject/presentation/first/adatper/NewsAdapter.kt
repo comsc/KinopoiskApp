@@ -1,6 +1,7 @@
 package com.example.newsproject.presentation.first.adatper
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -25,6 +26,8 @@ class NewsAdapter(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(getItem(position), listener)
     }
+
+
 }
 
 private object Comparator : DiffUtil.ItemCallback<Doc>() {
@@ -51,7 +54,6 @@ class Holder(private val binding: CardNewsBinding) : RecyclerView.ViewHolder(bin
             rateImdb.text = "ImDB: ${item.rating?.imdb}"
             timeMovie.text = "${item.movieLength.toString()} минут"
             yearMovie.text = "Год выпуска: ${item.year}"
-
             itemView.setOnClickListener { listener.onClick(item) }
             favoriteIconOff.setOnClickListener {
                 if (item.isFavorite) {

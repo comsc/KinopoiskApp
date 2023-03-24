@@ -1,23 +1,20 @@
 package com.example.newsproject.presentation.search
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewbinding.ViewBinding
 import com.example.newsproject.R
 import com.example.newsproject.data.models.Doc
-import com.example.newsproject.databinding.FragmentFirstBinding
 import com.example.newsproject.databinding.FragmentSearchBinding
 import com.example.newsproject.presentation.first.Listener
-import com.example.newsproject.presentation.first.adatper.NewsAdapter
 import com.example.newsproject.presentation.search.adapter.SearchAdapter
 
 
@@ -32,11 +29,13 @@ class SearchFragment : Fragment() {
         }
 
         override fun addFavorite(item: Doc) {
-         TODO()
+            showToast("Добавлено в избранное!")
+            viewModel.handleFavorites(item)
         }
 
         override fun deleteFavorite(item: Doc) {
-           TODO()
+            showToast("Удалено из избранного!")
+            viewModel.handleFavorites(item)
         }
     }
 
@@ -56,6 +55,9 @@ class SearchFragment : Fragment() {
         }
         binding.searchMovie.addTextChangedListener {
             viewModel.searchMovie(it.toString())
+        }
+        viewModel.favoriteMovies.observe(viewLifecycleOwner) {
+            viewModel.handleAllArticles(it)
         }
     }
 

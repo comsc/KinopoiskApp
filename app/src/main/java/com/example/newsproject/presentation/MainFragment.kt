@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.newsproject.databinding.FragmentMainBinding
+import com.example.newsproject.presentation.cartoons.CartoonsFragment
 import com.example.newsproject.presentation.favorite.FavoriteFragment
 import com.example.newsproject.presentation.first.FirstFragment
+import com.example.newsproject.presentation.serials.SerialsFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainFragment : Fragment() {
@@ -16,11 +18,13 @@ class MainFragment : Fragment() {
 
     private val fragList = listOf(
         FirstFragment.newInstance(),
-        FavoriteFragment.newInstance()
+        SerialsFragment.newInstance(),
+        CartoonsFragment.newInstance()
     )
     private val fragtitles = listOf(
         "Фильмы",
-        "Сериалы"
+        "Сериалы",
+        "Мультфильмы"
     )
 
     override fun onCreateView(

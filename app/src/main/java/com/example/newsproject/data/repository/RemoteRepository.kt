@@ -7,6 +7,7 @@ import com.example.newsproject.data.models.movie.Movie
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
@@ -27,8 +28,14 @@ class RemoteRepository(context: Context) {
     private val api: ApiService by lazy {
         retrofit.create(ApiService::class.java)
     }
-    suspend fun getMovie(): Kinopoisk {
+    suspend fun getMovie(): Response<Kinopoisk> {
         return api.getMovieApi()
+    }
+    suspend fun getSerials(): Response<Kinopoisk> {
+        return api.getSerialsApi()
+    }
+    suspend fun getCartoons(): Response<Kinopoisk> {
+        return api.getCartoonsApi()
     }
     suspend fun searchMovie(name:String): Kinopoisk{
         return api.searchMovieApi(name = name)

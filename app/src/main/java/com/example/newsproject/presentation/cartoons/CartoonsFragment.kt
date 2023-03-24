@@ -1,31 +1,28 @@
-package com.example.newsproject.presentation.first
+package com.example.newsproject.presentation.cartoons
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.newsproject.R
 import com.example.newsproject.data.models.Doc
-import com.example.newsproject.databinding.FragmentFirstBinding
+import com.example.newsproject.databinding.FragmentCartoonsBinding
+import com.example.newsproject.presentation.first.Listener
 import com.example.newsproject.presentation.first.adatper.NewsAdapter
 import com.example.newsproject.utils.Resource
 
-class FirstFragment : Fragment() {
 
-    companion object{
-        fun newInstance() = FirstFragment()
-    }
-
-    private var _binding: FragmentFirstBinding? = null
+class CartoonsFragment : Fragment() {
+    private var _binding: FragmentCartoonsBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModels<CartoonsViewModel>()
     private val newsListener = object : Listener {
         override fun onClick(item: Doc) {
             navigateToDetailArticle(item)
@@ -42,20 +39,22 @@ class FirstFragment : Fragment() {
         }
     }
     private val adapter: NewsAdapter by lazy { NewsAdapter(newsListener) }
-    private val viewModel by viewModels<NewsViewModel>()
+
+    companion object {
+        fun newInstance() = CartoonsFragment()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        _binding = FragmentCartoonsBinding.inflate(inflater, container, false)
+        return binding.root}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
-        viewModel.articles.observe(viewLifecycleOwner) { response ->
+        viewModel.movie.observe(viewLifecycleOwner) { response ->
             when (response){
                 is Resource.Success -> {
                     binding.progressBar.isVisible = false
@@ -75,7 +74,7 @@ class FirstFragment : Fragment() {
         }
 
         viewModel.favoriteArticles.observe(viewLifecycleOwner) {
-            viewModel.getMovieData(it)
+            viewModel.getCartoonsData(it)
         }
 //        val swipeRefreshLayout = binding.itemsSwipeToRefresh
 //        swipeRefreshLayout.setOnRefreshListener{
@@ -111,4 +110,3 @@ class FirstFragment : Fragment() {
 
 
 }
-

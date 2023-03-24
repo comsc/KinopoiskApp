@@ -19,15 +19,24 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
 
+    <ImageView
+        android:id="@+id/button_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardPoster"
         android:layout_width="200dp"
         android:layout_height="300dp"
+        android:layout_marginVertical="20dp"
+        app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginVertical="20dp"
-        app:cardCornerRadius="20dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imagePosterDetail"
@@ -38,43 +47,37 @@
     </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:id="@+id/button_back"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="20dp"
-        android:src="@drawable/back_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/ic_star_rate"
-        android:layout_marginTop="55dp"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="55dp"
+        android:src="@drawable/ic_star_rate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/movieRatingKp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textSize="14sp"
-        android:textColor="@color/white"
-        tools:text="KP:5.5"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="80dp"
-        android:layout_marginHorizontal="20dp"/>
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="KP:5.5" />
+
     <TextView
         android:id="@+id/movieRatingImdb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textSize="14sp"
-        android:textColor="@color/white"
-        tools:text="ImDB:5.5"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="100dp"
-        android:layout_marginHorizontal="20dp"/>
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="ImDB:5.5" />
 
     <ImageView
         android:id="@+id/favorite_off_detail"
@@ -82,6 +85,7 @@
         android:layout_height="25dp"
         android:layout_margin="20dp"
         android:src="@drawable/favorite_off"
+        app:tint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,37 +95,39 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginBottom="16dp"
+        android:textAlignment="center"
         android:textColor="#F1EFEF"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@+id/cardPoster"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardPoster"
         tools:text="Title" />
+
     <TextView
         android:id="@+id/movie_desc_detail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:layout_marginBottom="16dp"
+        android:ellipsize="end"
         android:textColor="#F1EFEF"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/movie_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_title"
         tools:text="Description" />
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/playerDetail"
         android:layout_width="match_parent"
         android:layout_height="280dp"
+        android:layout_marginTop="16dp"
         android:elevation="4dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/movie_desc_detail" />
+        app:layout_constraintTop_toBottomOf="@id/movie_desc_detail" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
