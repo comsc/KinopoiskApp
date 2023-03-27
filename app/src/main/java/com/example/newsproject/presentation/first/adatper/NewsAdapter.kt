@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.size.ViewSizeResolver
 import com.bumptech.glide.Glide
 import com.example.newsproject.R
 import com.example.newsproject.data.models.Doc
@@ -46,8 +48,14 @@ class Holder(private val binding: CardNewsBinding) : RecyclerView.ViewHolder(bin
     @SuppressLint("SetTextI18n")
     fun bind(item: Doc, listener: Listener) {
         with(binding) {
-            Glide.with(itemView).load(item.poster?.previewUrl).into(movieImageBg)
-            Glide.with(itemView).load(item.poster?.previewUrl).into(movieImagePoster)
+            movieImageBg.load(item.poster?.previewUrl) {
+                ViewSizeResolver(movieImageBg)
+            }
+            movieImagePoster.load(item.poster?.previewUrl) {
+                ViewSizeResolver(movieImagePoster)
+            }
+//            Glide.with(movieImageBg).load(item.poster?.previewUrl).into(movieImageBg)
+//            Glide.with(movieImagePoster).load(item.poster?.previewUrl).into(movieImagePoster)
             movieTitle.text = item.name
             genreMovie.text = item.genres?.map { "${it.name}" }?.take(2).toString()
             rateKp.text = "КП: ${item.rating?.kp}"

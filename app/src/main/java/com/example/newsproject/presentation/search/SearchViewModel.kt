@@ -7,6 +7,7 @@ import com.example.newsproject.data.DataObject
 import com.example.newsproject.data.models.Doc
 import com.example.newsproject.utils.extensions.asLiveData
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 

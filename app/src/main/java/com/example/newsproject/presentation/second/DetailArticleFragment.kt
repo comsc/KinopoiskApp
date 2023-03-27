@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import coil.load
+import coil.size.ViewSizeResolver
 import com.bumptech.glide.Glide
 import com.example.newsproject.R
 import com.example.newsproject.data.models.Doc
@@ -107,8 +109,14 @@ class DetailArticleFragment : Fragment(){
     @SuppressLint("SetTextI18n")
     private fun showInfo(movie: Doc) {
         with(binding) {
-            context?.let { Glide.with(it).load(movie.poster?.url).into(movieImageBackground) }
-            context?.let { Glide.with(it).load(movie.poster?.url).into(imagePosterDetail) }
+//            context?.let { Glide.with(it).load(movie.poster?.url).into(movieImageBackground) }
+//            context?.let { Glide.with(it).load(movie.poster?.url).into(imagePosterDetail) }
+            movieImageBackground.load(movie.poster?.previewUrl) {
+                ViewSizeResolver(movieImageBackground)
+            }
+            imagePosterDetail.load(movie.poster?.previewUrl) {
+                ViewSizeResolver(imagePosterDetail)
+            }
             movieTitle.text = movie.name
             movieDescDetail.text = movie.shortDescription
             movieRatingKp.text = "КП: ${movie.rating?.kp}"

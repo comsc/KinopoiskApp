@@ -1,5 +1,6 @@
 package com.example.newsproject.presentation.serials
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,12 +12,15 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsproject.R
 import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.FragmentSerialsBinding
 import com.example.newsproject.presentation.first.Listener
 import com.example.newsproject.presentation.first.adatper.NewsAdapter
 import com.example.newsproject.utils.Resource
+import com.example.newsproject.utils.extensions.pxInt
 
 class SerialsFragment : Fragment() {
     private var _binding: FragmentSerialsBinding? = null
@@ -71,10 +75,13 @@ class SerialsFragment : Fragment() {
             }
 
         }
-
         viewModel.favoriteArticles.observe(viewLifecycleOwner) {
             viewModel.getSerialsData(it)
         }
+
+
+
+
 //        val swipeRefreshLayout = binding.itemsSwipeToRefresh
 //        swipeRefreshLayout.setOnRefreshListener{
 //
@@ -90,8 +97,18 @@ class SerialsFragment : Fragment() {
     }
 
     private fun initRcView() = with(binding) {
-        recycleView.adapter = adapter
+        if(Resources.getSystem().displayMetrics.widthPixels.pxInt >= 600){
+            recycleView.adapter = adapter
+            recycleView.layoutManager = GridLayoutManager(context, 2)
+
+        }else {
+            recycleView.adapter = adapter
+            recycleView.layoutManager = LinearLayoutManager(context)
+        }
+
     }
+
+
 
     private fun navigateToDetailArticle(item: Doc) {
         val bundle = bundleOf("data" to item)

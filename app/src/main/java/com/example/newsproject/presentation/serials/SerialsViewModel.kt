@@ -40,8 +40,6 @@ class SerialsViewModel:ViewModel() {
 
     }
 
-
-
     fun handleFavorites(article: Doc) {
         if (article.isFavorite) {
             deleteFavorite(article)

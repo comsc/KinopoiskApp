@@ -16,7 +16,6 @@
         android:orientation="vertical"
         android:overScrollMode="ifContentScrolls"
         android:paddingBottom="5dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

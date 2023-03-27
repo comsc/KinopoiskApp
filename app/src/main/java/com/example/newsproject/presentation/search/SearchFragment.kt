@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,6 +17,7 @@ import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.FragmentSearchBinding
 import com.example.newsproject.presentation.first.Listener
 import com.example.newsproject.presentation.search.adapter.SearchAdapter
+import kotlinx.coroutines.delay
 
 
 class SearchFragment : Fragment() {
@@ -53,9 +55,11 @@ class SearchFragment : Fragment() {
         viewModel.movies.observe(viewLifecycleOwner){
             adapter.submitList(it)
         }
-        binding.searchMovie.addTextChangedListener {
-            viewModel.searchMovie(it.toString())
-        }
+        binding.searchMovie.doAfterTextChanged { viewModel.searchMovie( it.toString()) }
+//        binding.searchMovie.addTextChangedListener {
+//
+//            viewModel.searchMovie( it.toString())
+//        }
         viewModel.favoriteMovies.observe(viewLifecycleOwner) {
             viewModel.handleAllArticles(it)
         }
