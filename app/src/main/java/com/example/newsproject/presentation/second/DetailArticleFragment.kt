@@ -2,15 +2,20 @@ package com.example.newsproject.presentation.second
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import at.huber.youtubeExtractor.YouTubeExtractor
 import coil.load
 import coil.size.ViewSizeResolver
 import com.bumptech.glide.Glide
@@ -18,12 +23,15 @@ import com.example.newsproject.R
 import com.example.newsproject.data.models.Doc
 import com.example.newsproject.data.models.movie.Trailer
 import com.example.newsproject.databinding.FragmentSecondBinding
+import com.example.newsproject.presentation.second.bottomSheet.DescriptionBottomSheetDialog
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiController
+import kotlinx.coroutines.launch
+import kotlin.concurrent.fixedRateTimer
 
 
 class DetailArticleFragment : Fragment(){
@@ -32,6 +40,7 @@ class DetailArticleFragment : Fragment(){
     private val binding get() = _binding!!
     private val bundleArgs: DetailArticleFragmentArgs by navArgs()
     private val viewModel by viewModels<DetailViewModel>()
+
 
 
     override fun onCreateView(
@@ -60,6 +69,7 @@ class DetailArticleFragment : Fragment(){
             buttonBack.setOnClickListener {
                 findNavController().popBackStack()
             }
+
         }
         val youTubePlayerView: YouTubePlayerView = binding.playerDetail
         lifecycle.addObserver(youTubePlayerView)
@@ -75,11 +85,22 @@ class DetailArticleFragment : Fragment(){
                 viewModel.movies.observe(viewLifecycleOwner){
                     if (it.videos?.trailers?.isNotEmpty() == true){
                     val videoId = it.videos.trailers.let { it1 -> getUrlTrailers(it1) }
-                    videoId?.let { youTubePlayer.cueVideo(videoId,0f) }}
-                    else binding.playerDetail.isVisible = false
+                    videoId?.let { youTubePlayer.cueVideo(videoId,0f) }
+                        binding.playerDetail.isVisible = true}
                 }
             }
         }
+//        val youtubeLink = "https://www.youtube.com/watch?v=wDH5XCai6zI"
+//        lifecycleScope.launch {
+//            val result = YouTubeExtractor.Builder()
+//            result.let {
+//                val downloadUrl = it
+//                // ...
+//            }
+//            result.let {
+//                // ...
+//            }
+//        }
 
         // Disable iFrame UI
         val options: IFramePlayerOptions = IFramePlayerOptions.Builder().controls(0).build()
@@ -118,9 +139,14 @@ class DetailArticleFragment : Fragment(){
                 ViewSizeResolver(imagePosterDetail)
             }
             movieTitle.text = movie.name
-            movieDescDetail.text = movie.shortDescription
+            movieDescDetail.text = movie.description
             movieRatingKp.text = "КП: ${movie.rating?.kp}"
             movieRatingImdb.text = "ImDB: ${movie.rating?.imdb}"
+            movieDescDetail.setOnClickListener{
+                val modalBottomSheet = DescriptionBottomSheetDialog()
+                modalBottomSheet.arguments = bundleOf("sheet" to movie)
+                parentFragmentManager.let { it1 -> modalBottomSheet.show(it1, modalBottomSheet.tag) }
+            }
 
 
             favoriteOffDetail.setImageResource(

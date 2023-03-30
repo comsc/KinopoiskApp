@@ -11,7 +11,9 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsproject.R
@@ -20,6 +22,8 @@ import com.example.newsproject.databinding.FragmentFirstBinding
 import com.example.newsproject.presentation.first.adatper.NewsAdapter
 import com.example.newsproject.utils.Resource
 import com.example.newsproject.utils.extensions.pxInt
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class FirstFragment : Fragment() {
 
@@ -58,28 +62,47 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
-        viewModel.articles.observe(viewLifecycleOwner) { response ->
-            when (response){
-                is Resource.Success -> {
+        adapter.addLoadStateListener { loadState ->
+            when (loadState.source.refresh) {
+                is LoadState.NotLoading -> {
                     binding.progressBar.isVisible = false
-                    response.data?.let { adapter.submitList(it) }
                 }
-                is Resource.Error -> {
-                    binding.progressBar.isVisible = false
-                    response.data?.let {
-                        Log.e("checkData","FirstFragment: error: $it")
-                    }
-                }
-                is Resource.Loading -> {
+                is LoadState.Loading -> {
                     binding.progressBar.isVisible = true
+
+                }
+                is LoadState.Error -> {
+                    binding.progressBar.isVisible = false
+
                 }
             }
-
         }
 
-        viewModel.favoriteArticles.observe(viewLifecycleOwner) {
-            viewModel.getMovieData(it)
+        viewModel.movies.observe(viewLifecycleOwner){
+             adapter.submitData(pagingData = it, lifecycle = lifecycle)
         }
+//        viewModel.articles.observe(viewLifecycleOwner) { response ->
+//            when (response){
+//                is Resource.Success -> {
+//                    binding.progressBar.isVisible = false
+//                    response.data?.let { adapter.submitData() }
+//                }
+//                is Resource.Error -> {
+//                    binding.progressBar.isVisible = false
+//                    response.data?.let {
+//                        Log.e("checkData","FirstFragment: error: $it")
+//                    }
+//                }
+//                is Resource.Loading -> {
+//                    binding.progressBar.isVisible = true
+//                }
+//            }
+//
+//        }
+
+//        viewModel.favoriteArticles.observe(viewLifecycleOwner) {
+//            viewModel.getMovieData(it)
+//        }
 //        val swipeRefreshLayout = binding.itemsSwipeToRefresh
 //        swipeRefreshLayout.setOnRefreshListener{
 //

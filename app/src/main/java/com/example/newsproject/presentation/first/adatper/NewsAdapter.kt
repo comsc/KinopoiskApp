@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,7 @@ import com.example.newsproject.presentation.first.Listener
 
 class NewsAdapter(
     private val listener: Listener
-) : ListAdapter<Doc, Holder>(Comparator) {
+) : PagingDataAdapter<Doc, Holder>(Comparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val itemBinding =
@@ -26,7 +27,7 @@ class NewsAdapter(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(getItem(position), listener)
+        getItem(position)?.let { holder.bind(it, listener) }
     }
 
 

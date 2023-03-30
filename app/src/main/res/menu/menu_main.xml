@@ -1,7 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.newsproject.presentation.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <!--    <item-->
 <!--        android:id="@+id/action_settings"-->
@@ -11,15 +9,20 @@
     <item
         android:id="@+id/mainFragment"
         android:icon="@drawable/ic_home"
-        android:iconTint="#FFFFFF"
+        android:iconTint="@color/bottom_nav_color"
+        app:showAsAction="ifRoom"
         android:title="" />
 
     <item android:id="@+id/searchFragment"
         android:title=""
-        android:icon="@drawable/ic_search" />
+        android:icon="@drawable/ic_search"
+        android:iconTint="@color/bottom_nav_color"
+        app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/favoriteFragment"
         android:title=""
-        android:icon="@drawable/favorite_on"/>
+        android:icon="@drawable/favorite_on"
+        android:iconTint="@color/bottom_nav_color"
+        app:showAsAction="ifRoom"/>
 
 </menu>

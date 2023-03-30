@@ -12,6 +12,9 @@
         <argument
             android:name="data"
             app:argType="com.example.newsproject.data.models.Doc" />
+        <action
+            android:id="@+id/action_DetailArticleFragment_to_descriptionBottomSheetDialog"
+            app:destination="@id/descriptionBottomSheetDialog" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -39,4 +42,12 @@
             android:id="@+id/action_searchFragment_to_DetailArticleFragment"
             app:destination="@id/DetailArticleFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/descriptionBottomSheetDialog"
+        android:name="com.example.newsproject.presentation.second.bottomSheet.DescriptionBottomSheetDialog"
+        android:label="DescriptionBottomSheetDialog" >
+        <argument
+            android:name="sheet"
+            app:argType="com.example.newsproject.data.models.Doc" />
+    </dialog>
 </navigation>

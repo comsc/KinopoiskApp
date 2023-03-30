@@ -31,7 +31,7 @@
         android:background="#1B1A1A"
         app:itemActiveIndicatorStyle="@color/purple_500"
         app:itemRippleColor="@color/purple_500"
-        app:itemIconTint="@color/white"
+        app:itemIconTint="@color/bottom_nav_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

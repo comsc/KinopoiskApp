@@ -54,28 +54,28 @@ class CartoonsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
-        viewModel.movie.observe(viewLifecycleOwner) { response ->
-            when (response){
-                is Resource.Success -> {
-                    binding.progressBar.isVisible = false
-                    response.data?.let { adapter.submitList(it) }
-                }
-                is Resource.Error -> {
-                    binding.progressBar.isVisible = false
-                    response.data?.let {
-                        Log.e("checkData","FirstFragment: error: $it")
-                    }
-                }
-                is Resource.Loading -> {
-                    binding.progressBar.isVisible = true
-                }
-            }
-
-        }
-
-        viewModel.favoriteArticles.observe(viewLifecycleOwner) {
-            viewModel.getCartoonsData(it)
-        }
+//        viewModel.movie.observe(viewLifecycleOwner) { response ->
+//            when (response){
+//                is Resource.Success -> {
+//                    binding.progressBar.isVisible = false
+//                    response.data?.let { adapter.submitList(it) }
+//                }
+//                is Resource.Error -> {
+//                    binding.progressBar.isVisible = false
+//                    response.data?.let {
+//                        Log.e("checkData","FirstFragment: error: $it")
+//                    }
+//                }
+//                is Resource.Loading -> {
+//                    binding.progressBar.isVisible = true
+//                }
+//            }
+//
+//        }
+//
+//        viewModel.favoriteArticles.observe(viewLifecycleOwner) {
+//            viewModel.getCartoonsData(it)
+//        }
 //        val swipeRefreshLayout = binding.itemsSwipeToRefresh
 //        swipeRefreshLayout.setOnRefreshListener{
 //

@@ -14,8 +14,8 @@ interface ApiService {
     suspend fun getMovieApi(
         @Header("accept") accept: String = "application/json",
         @Header("X-API-KEY") apikey: String = ObjectConst.API_KEY,
-        @Query("page") page: Int = 1,
-        @Query("limit") limit: Int = 15,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int,
         @Query("type") type: String = "movie",
         @Query("year") year: Int = 2022,
     ):Response<Kinopoisk>

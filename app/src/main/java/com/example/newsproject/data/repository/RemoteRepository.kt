@@ -14,13 +14,13 @@ import java.io.File
 
 class RemoteRepository(context: Context) {
     private val cacheSize:Long = 10 * 1024 * 1024 // 10 MB
-//    private val cache: Cache = Cache(File(context.cacheDir,"http-cash"), cacheSize)
+    private val cache: Cache = Cache(File(context.cacheDir,"http-cash"), cacheSize)
     private val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://api.kinopoisk.dev")
             .addConverterFactory(GsonConverterFactory.create())
             .client(OkHttpClient().newBuilder().apply {
                 addInterceptor(getLoggingInterceptor())
-            }.build())
+            }.cache(cache).build())
             .build()
     private fun getLoggingInterceptor() = HttpLoggingInterceptor().apply {
         setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -28,8 +28,8 @@ class RemoteRepository(context: Context) {
     private val api: ApiService by lazy {
         retrofit.create(ApiService::class.java)
     }
-    suspend fun getMovie(): Response<Kinopoisk> {
-        return api.getMovieApi()
+    suspend fun getMovie(page:Int, limit:Int): Response<Kinopoisk> {
+        return api.getMovieApi(page = page, limit = limit)
     }
     suspend fun getSerials(): Response<Kinopoisk> {
         return api.getSerialsApi()

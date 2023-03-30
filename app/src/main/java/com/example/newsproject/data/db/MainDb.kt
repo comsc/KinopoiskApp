@@ -4,10 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import com.example.newsproject.data.models.Doc
 
-@Database(entities = [Doc::class], version = 5, exportSchema = false)
+@Database(entities = [Doc::class], version = 6, exportSchema = false)
 abstract class MainDb : RoomDatabase() {
     abstract fun getDao(): MovieDao
 

@@ -11,9 +11,9 @@ import com.google.gson.annotations.SerializedName
 data class Doc(
     val alternativeName: String?,
     val color: String?,
-    @SerializedName("country_tbl")
-    @Embedded
-    val countries: Country?,
+//    @SerializedName("country_tbl")
+//    @Embedded
+    val countries: List<Country>?,
     val description: String?,
     @Embedded
     val externalId: ExternalId?,
