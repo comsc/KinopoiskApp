@@ -1,71 +1,22 @@
 package com.example.newsproject.presentation.cartoons
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import androidx.paging.liveData
 import com.example.newsproject.data.DataObject
-import com.example.newsproject.data.models.Doc
-import com.example.newsproject.utils.Resource
-import com.example.newsproject.utils.extensions.asLiveData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.newsproject.presentation.first.paging.MoviePagingSource
 
 class CartoonsViewModel:ViewModel() {
     private val remoteRepository = DataObject.remoteRepository
-    private val localRepository = DataObject.localRepository
-    private var _movies = MutableLiveData<Resource<List<Doc>>>()
-    val movie = _movies.asLiveData()
-
-    val favoriteArticles = localRepository.getFavoriteMoviesFromDb()
-
-    init {
-        getCartoonsData(favoriteArticles.value)
-    }
-
-    fun getCartoonsData(list: List<Doc>?) = viewModelScope.launch {
-        _movies.postValue(Resource.Loading())
-        val response = withContext(Dispatchers.IO) {
-            remoteRepository.getCartoons()
-        }
-
-        if (response.isSuccessful){
-            response.body()?.docs?.map { it.copy(isFavorite = false) }?.toMutableList()
-                ?.onEach { article ->
-                    list?.any { it.id == article.id }?.let { article.isFavorite = it }
-                }?.let { _movies.postValue(Resource.Success(it))  }
-        }else {
-            _movies.postValue(Resource.Error(message = response.message()))
-        }
-
-    }
-
-
-
-    fun handleFavorites(article: Doc) {
-        if (article.isFavorite) {
-            deleteFavorite(article)
-        } else {
-            addFavorite(article)
-        }
-    }
-
-    private fun deleteFavorite(article: Doc) = viewModelScope.launch {
-        localRepository.removeMovieFromDb(article)
-        val oldList = _movies.value?.data?.toMutableList()
-        _movies.value?.data =
-            oldList?.map {
-                it.copy(
-                    isFavorite = if (article.id == it.id) {
-                        false
-                    } else {
-                        it.isFavorite
-                    }
-                )
-            }
-    }
-
-    private fun addFavorite(article: Doc) = viewModelScope.launch {
-        localRepository.addMovieToDb(article.copy(isFavorite = true))
-    }
+    fun getMovie() = Pager(
+        config = PagingConfig(
+            pageSize = 10,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = { MoviePagingSource(remoteRepository, type = "cartoon") }
+    ).liveData.cachedIn(viewModelScope)
 }
+

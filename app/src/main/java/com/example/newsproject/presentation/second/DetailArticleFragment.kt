@@ -56,6 +56,7 @@ class DetailArticleFragment : Fragment(){
 
         viewModel.setDetail(bundleArgs.data)
         viewModel.movieId(bundleArgs.data.id.toString())
+        viewModel.isFavoriteMovie(bundleArgs.data.id)
 
     }
 
@@ -84,7 +85,7 @@ class DetailArticleFragment : Fragment(){
                 youTubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
                 viewModel.movies.observe(viewLifecycleOwner){
                     if (it.videos?.trailers?.isNotEmpty() == true){
-                    val videoId = it.videos.trailers.let { it1 -> getUrlTrailers(it1) }
+                    val videoId = it.videos.trailers.let { it1 -> viewModel.getUrlTrailers(it1) }
                     videoId?.let { youTubePlayer.cueVideo(videoId,0f) }
                         binding.playerDetail.isVisible = true}
                 }
@@ -106,6 +107,7 @@ class DetailArticleFragment : Fragment(){
         val options: IFramePlayerOptions = IFramePlayerOptions.Builder().controls(0).build()
         youTubePlayerView.initialize(listener, options)
         setupObservers()
+
     }
 
     private fun setupObservers() {
@@ -115,13 +117,7 @@ class DetailArticleFragment : Fragment(){
             }
         }
     }
-    @SuppressLint("SuspiciousIndentation")
-    private fun getUrlTrailers(list:List<Trailer>):String? {
-        val url = list.last().url
-        return if (url?.contains("embed") == true){
-            url.substringAfterLast("embed/")
-        } else url?.substringAfterLast("=")
-    }
+
 //    fun isLanguageRus(string: String): Boolean {
 //        return string.contains("[а-я]".toRegex())
 //    }
@@ -138,6 +134,7 @@ class DetailArticleFragment : Fragment(){
             imagePosterDetail.load(movie.poster?.previewUrl) {
                 ViewSizeResolver(imagePosterDetail)
             }
+
             movieTitle.text = movie.name
             movieDescDetail.text = movie.description
             movieRatingKp.text = "КП: ${movie.rating?.kp}"
@@ -145,11 +142,11 @@ class DetailArticleFragment : Fragment(){
             movieDescDetail.setOnClickListener{
                 val modalBottomSheet = DescriptionBottomSheetDialog()
                 modalBottomSheet.arguments = bundleOf("sheet" to movie)
-                parentFragmentManager.let { it1 -> modalBottomSheet.show(it1, modalBottomSheet.tag) }
+                parentFragmentManager.let { fManager -> modalBottomSheet.show(fManager, modalBottomSheet.tag) }
             }
 
-
             favoriteOffDetail.setImageResource(
+
                 if (movie.isFavorite) {
                     R.drawable.favorite_on
                 } else {

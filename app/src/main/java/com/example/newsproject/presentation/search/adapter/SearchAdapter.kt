@@ -53,20 +53,13 @@ class Holder(private val binding: CardNewsBinding) : RecyclerView.ViewHolder(bin
             yearMovie.text = "Год выпуска: ${item.year}"
 
             itemView.setOnClickListener { listener.onClick(item) }
-            favoriteIconOff.setOnClickListener {
-                if (item.isFavorite) {
-                    listener.deleteFavorite(item)
-                } else {
-                    listener.addFavorite(item)
-                }
-            }
-            favoriteIconOff.setImageResource(
-                if (item.isFavorite) {
-                    R.drawable.favorite_on
-                } else {
-                    R.drawable.favorite_off
-                }
-            )
+//            favoriteIconOff.setImageResource(
+//                if (item.isFavorite) {
+//                    R.drawable.favorite_on
+//                } else {
+//                    R.drawable.favorite_off
+//                }
+//            )
         }
     }
 }

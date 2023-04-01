@@ -3,6 +3,7 @@ package com.example.newsproject.presentation.favorite.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -56,7 +57,7 @@ class HolderFavorite(private val binding: CardNewsBinding) : RecyclerView.ViewHo
             rateImdb.text = "ImDB: ${item.rating?.imdb}"
             timeMovie.text = "${item.movieLength.toString()} минут"
             yearMovie.text = "Год выпуска: ${item.year}"
-
+            favoriteIconOff.isVisible = true
             favoriteIconOff.setImageResource(R.drawable.favorite_on)
             favoriteIconOff.setOnClickListener { deleteItemFavorite.invoke(item) }
             itemView.setOnClickListener { onClickItemListener.invoke(item) }

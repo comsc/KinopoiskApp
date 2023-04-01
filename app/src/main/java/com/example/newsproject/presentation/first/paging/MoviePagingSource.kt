@@ -1,37 +1,44 @@
-package com.example.newsproject.data.paging
+package com.example.newsproject.presentation.first.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.newsproject.data.models.Doc
 import com.example.newsproject.data.repository.RemoteRepository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
 import java.io.IOException
 
-class MoviePagingSource(private val remoteRepository: RemoteRepository):PagingSource<Int, Doc>() {
+class MoviePagingSource(
+    private val remoteRepository: RemoteRepository,
+    val type:String
+    ): PagingSource<Int, Doc>() {
+
     companion object {
         private const val STARTING_PAGE_INDEX = 1
     }
 
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Doc> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = remoteRepository.getMovie(page, params.loadSize)
-            if (response.isSuccessful){
-                val movie = checkNotNull(response.body()?.docs)
+            val response = withContext(Dispatchers.IO) {
+                remoteRepository.getMovie(page, params.loadSize, type = type)
+            }
+            val movie = checkNotNull(response.body()?.docs)
+            val prevKey = if (page == STARTING_PAGE_INDEX) null else page.minus(1)
+            val nextKey = if (movie.isEmpty()) null else page.plus(1)
+            if (response.isSuccessful) {
                 LoadResult.Page(
-                    movie, prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
-                    nextKey = if (movie.isEmpty()) null else page + 1
+                    data = movie,
+                    prevKey = if (page == STARTING_PAGE_INDEX) null else page.minus(1),
+                    nextKey = if (movie.isEmpty()) null else page.plus(1)
                 )
-            }else LoadResult.Error(HttpException(response))
-
+            } else {
+                LoadResult.Page(emptyList(), prevKey, nextKey)
+            }
         } catch (exception: IOException) {
             return LoadResult.Error(exception)
-        } catch (exception: HttpException) {
-            return LoadResult.Error(exception)
+        } catch (e:Exception){
+            return LoadResult.Error(e)
         }
     }
 

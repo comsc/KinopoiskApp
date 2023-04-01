@@ -16,5 +16,9 @@ class LocalRepository(private val dao: MovieDao) {
         dao.delete(item)
     }
 
+    fun isFavoriteMovie(id:Int?):Boolean{
+       return dao.isFavoriteMovie(id)
+    }
+
 
 }

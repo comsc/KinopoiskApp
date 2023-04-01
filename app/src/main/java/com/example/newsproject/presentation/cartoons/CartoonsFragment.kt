@@ -11,6 +11,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.example.newsproject.R
 import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.FragmentCartoonsBinding
@@ -26,16 +27,6 @@ class CartoonsFragment : Fragment() {
     private val newsListener = object : Listener {
         override fun onClick(item: Doc) {
             navigateToDetailArticle(item)
-        }
-
-        override fun addFavorite(item: Doc) {
-            showToast("Добавлено в избранное!")
-            viewModel.handleFavorites(item)
-        }
-
-        override fun deleteFavorite(item: Doc) {
-            showToast("Удалено из избранного!")
-            viewModel.handleFavorites(item)
         }
     }
     private val adapter: NewsAdapter by lazy { NewsAdapter(newsListener) }
@@ -54,6 +45,25 @@ class CartoonsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
+        adapter.addLoadStateListener { loadState ->
+            when (loadState.source.refresh) {
+                is LoadState.NotLoading -> {
+                    binding.progressBar.isVisible = false
+                }
+                is LoadState.Loading -> {
+                    binding.progressBar.isVisible = true
+
+                }
+                is LoadState.Error -> {
+                    binding.progressBar.isVisible = false
+
+                }
+            }
+        }
+
+        viewModel.getMovie().observe(viewLifecycleOwner){
+            adapter.submitData(pagingData = it, lifecycle = lifecycle)
+        }
 //        viewModel.movie.observe(viewLifecycleOwner) { response ->
 //            when (response){
 //                is Resource.Success -> {

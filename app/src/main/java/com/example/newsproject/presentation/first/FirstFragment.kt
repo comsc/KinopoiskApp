@@ -37,18 +37,8 @@ class FirstFragment : Fragment() {
         override fun onClick(item: Doc) {
             navigateToDetailArticle(item)
         }
-
-        override fun addFavorite(item: Doc) {
-            showToast("Добавлено в избранное!")
-            viewModel.handleFavorites(item)
-        }
-
-        override fun deleteFavorite(item: Doc) {
-            showToast("Удалено из избранного!")
-            viewModel.handleFavorites(item)
-        }
     }
-    private val adapter: NewsAdapter by lazy { NewsAdapter(newsListener) }
+    private val adapter: NewsAdapter by lazy { NewsAdapter(listener = newsListener) }
     private val viewModel by viewModels<NewsViewModel>()
 
     override fun onCreateView(
@@ -78,7 +68,7 @@ class FirstFragment : Fragment() {
             }
         }
 
-        viewModel.movies.observe(viewLifecycleOwner){
+        viewModel.getMovie().observe(viewLifecycleOwner){
              adapter.submitData(pagingData = it, lifecycle = lifecycle)
         }
 //        viewModel.articles.observe(viewLifecycleOwner) { response ->
@@ -134,9 +124,9 @@ class FirstFragment : Fragment() {
         findNavController().navigate(R.id.action_mainFragment_to_DetailArticleFragment, bundle)
     }
 
-    private fun showToast(text: String) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
-    }
+//    private fun showToast(text: String) {
+//        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

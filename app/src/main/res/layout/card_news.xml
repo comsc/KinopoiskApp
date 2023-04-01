@@ -141,6 +141,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:srcCompat="@drawable/favorite_off"
-        app:tint="#F1EBEB" />
+        app:tint="#F1EBEB"
+        android:visibility="gone"/>
 
 </androidx.cardview.widget.CardView>

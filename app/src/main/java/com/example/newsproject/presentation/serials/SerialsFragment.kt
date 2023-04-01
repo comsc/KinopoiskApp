@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsproject.R
@@ -30,16 +31,6 @@ class SerialsFragment : Fragment() {
         override fun onClick(item: Doc) {
             navigateToDetailArticle(item)
         }
-
-        override fun addFavorite(item: Doc) {
-            showToast("Добавлено в избранное!")
-            viewModel.handleFavorites(item)
-        }
-
-        override fun deleteFavorite(item: Doc) {
-            showToast("Удалено из избранного!")
-            viewModel.handleFavorites(item)
-        }
     }
     private val adapter: NewsAdapter by lazy { NewsAdapter(newsListener) }
 
@@ -57,6 +48,25 @@ class SerialsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
+        adapter.addLoadStateListener { loadState ->
+            when (loadState.source.refresh) {
+                is LoadState.NotLoading -> {
+                    binding.progressBar.isVisible = false
+                }
+                is LoadState.Loading -> {
+                    binding.progressBar.isVisible = true
+
+                }
+                is LoadState.Error -> {
+                    binding.progressBar.isVisible = false
+
+                }
+            }
+        }
+
+        viewModel.getMovie().observe(viewLifecycleOwner){
+            adapter.submitData(pagingData = it, lifecycle = lifecycle)
+        }
 //        viewModel.movie.observe(viewLifecycleOwner) { response ->
 //            when (response){
 //                is Resource.Success -> {

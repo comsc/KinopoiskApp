@@ -1,16 +1,15 @@
 package com.example.newsproject.presentation.second
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsproject.data.DataObject
 import com.example.newsproject.data.models.Doc
 import com.example.newsproject.data.models.movie.Movie
+import com.example.newsproject.data.models.movie.Trailer
+import com.example.newsproject.utils.Resource
 import com.example.newsproject.utils.extensions.asLiveData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class DetailViewModel: ViewModel() {
 
@@ -23,10 +22,20 @@ class DetailViewModel: ViewModel() {
     val movies = _movies.asLiveData()
 
     fun movieId(movieId:String) = viewModelScope.launch{
-        val response = withContext(Dispatchers.IO) {
-            remoteRepository.movieId(movieId)
+        try {
+            val response = withContext(Dispatchers.IO) {
+                remoteRepository.movieId(movieId)
+            }
+            _movies.value = response
+        }catch (e:Exception){
+            return@launch
         }
-        _movies.value = response
+    }
+
+    fun isFavoriteMovie(id:Int?) = viewModelScope.launch(Dispatchers.IO) {
+        if(localRepository.isFavoriteMovie(id)){
+            _detailArticle.value?.isFavorite = true
+        }
     }
 
 
@@ -50,11 +59,19 @@ class DetailViewModel: ViewModel() {
         }
     }
 
+
     private fun deleteFavorite(article: Doc) {
         val actualArticle = article.copy(isFavorite = false)
         setDetail(actualArticle)
         viewModelScope.launch {
             localRepository.removeMovieFromDb(article.copy(isFavorite = true))
         }
+    }
+    //@SuppressLint("SuspiciousIndentation")
+    fun getUrlTrailers(list:List<Trailer>):String? {
+        val url = list.last().url
+        return if (url?.contains("embed") == true){
+            url.substringAfterLast("embed/")
+        } else url?.substringAfterLast("=")
     }
 }

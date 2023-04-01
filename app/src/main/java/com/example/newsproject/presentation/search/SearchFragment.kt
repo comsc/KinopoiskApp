@@ -1,11 +1,13 @@
 package com.example.newsproject.presentation.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -17,6 +19,7 @@ import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.FragmentSearchBinding
 import com.example.newsproject.presentation.first.Listener
 import com.example.newsproject.presentation.search.adapter.SearchAdapter
+import com.example.newsproject.utils.Resource
 import kotlinx.coroutines.delay
 
 
@@ -30,15 +33,6 @@ class SearchFragment : Fragment() {
             navigateToDetailArticle(item)
         }
 
-        override fun addFavorite(item: Doc) {
-            showToast("Добавлено в избранное!")
-            viewModel.handleFavorites(item)
-        }
-
-        override fun deleteFavorite(item: Doc) {
-            showToast("Удалено из избранного!")
-            viewModel.handleFavorites(item)
-        }
     }
 
     override fun onCreateView(
@@ -53,16 +47,25 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
         viewModel.movies.observe(viewLifecycleOwner){
-            adapter.submitList(it)
+                response ->
+            when (response){
+                is Resource.Success -> {
+                    binding.progressBar.isVisible = false
+                    response.data?.let { adapter.submitList(it) }
+                }
+                is Resource.Error -> {
+                    binding.progressBar.isVisible = false
+                    response.data?.let {
+                        Log.e("checkData","FirstFragment: error: $it")
+                    }
+                }
+                is Resource.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
+            }
+
         }
         binding.searchMovie.doAfterTextChanged { viewModel.searchMovie( it.toString()) }
-//        binding.searchMovie.addTextChangedListener {
-//
-//            viewModel.searchMovie( it.toString())
-//        }
-        viewModel.favoriteMovies.observe(viewLifecycleOwner) {
-            viewModel.handleAllArticles(it)
-        }
     }
 
     private fun initRcView() = with(binding) {
@@ -75,9 +78,9 @@ class SearchFragment : Fragment() {
         findNavController().navigate(R.id.action_searchFragment_to_DetailArticleFragment, bundle)
     }
 
-    private fun showToast(text: String) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
-    }
+//    private fun showToast(text: String) {
+//        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

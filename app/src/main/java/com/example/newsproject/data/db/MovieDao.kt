@@ -15,8 +15,9 @@ interface MovieDao {
 
     @Query("SELECT * FROM movies")
     fun getFavoriteMovie(): LiveData<List<Doc>>
-//    @Query("SELECT EXISTS (SELECT 1 FROM articles WHERE title = :title)")
-//    fun isNoteEmptyArticle(title: String?): Boolean
+
+    @Query("SELECT EXISTS (SELECT 1 FROM movies WHERE id = :id)")
+    fun isFavoriteMovie(id: Int?): Boolean
 
 //    @Query("SELECT * FROM articles WHERE title = :title")
 //    fun getArticle(title: String?): Article
