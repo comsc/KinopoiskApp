@@ -6,11 +6,7 @@ import com.example.newsproject.data.api.ApiService
 import com.example.newsproject.data.models.Kinopoisk
 import com.example.newsproject.data.models.movie.Movie
 import okhttp3.Cache
-import okhttp3.Headers
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.internal.addHeaderLenient
-import okhttp3.internal.http2.Header
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit

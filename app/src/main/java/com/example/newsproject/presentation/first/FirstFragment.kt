@@ -2,16 +2,13 @@ package com.example.newsproject.presentation.first
 
 import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,10 +17,7 @@ import com.example.newsproject.R
 import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.FragmentFirstBinding
 import com.example.newsproject.presentation.first.adatper.NewsAdapter
-import com.example.newsproject.utils.Resource
 import com.example.newsproject.utils.extensions.pxInt
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class FirstFragment : Fragment() {
 
@@ -68,7 +62,7 @@ class FirstFragment : Fragment() {
             }
         }
 
-        viewModel.getMovie().observe(viewLifecycleOwner){
+        viewModel.movie.observe(viewLifecycleOwner){
              adapter.submitData(pagingData = it, lifecycle = lifecycle)
         }
 //        viewModel.articles.observe(viewLifecycleOwner) { response ->

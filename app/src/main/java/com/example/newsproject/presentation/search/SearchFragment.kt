@@ -56,7 +56,7 @@ class SearchFragment : Fragment() {
                 is Resource.Error -> {
                     binding.progressBar.isVisible = false
                     response.data?.let {
-                        Log.e("checkData","FirstFragment: error: $it")
+                        Log.e("MyTAG","Search: error: $it")
                     }
                 }
                 is Resource.Loading -> {

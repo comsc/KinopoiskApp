@@ -7,16 +7,17 @@ import com.example.newsproject.data.DataObject
 import com.example.newsproject.data.models.Doc
 import com.example.newsproject.data.models.movie.Movie
 import com.example.newsproject.data.models.movie.Trailer
-import com.example.newsproject.utils.Resource
 import com.example.newsproject.utils.extensions.asLiveData
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DetailViewModel: ViewModel() {
 
     private val localRepository = DataObject.localRepository
     private val remoteRepository = DataObject.remoteRepository
-    private val _detailArticle = MutableLiveData<Doc>()
-    val detailArticle = _detailArticle.asLiveData()
+    private val _detailMovie = MutableLiveData<Doc>()
+    val detailMovie = _detailMovie.asLiveData()
 
     private val _movies = MutableLiveData<Movie>()
     val movies = _movies.asLiveData()
@@ -33,38 +34,36 @@ class DetailViewModel: ViewModel() {
     }
 
     fun isFavoriteMovie(id:Int?) = viewModelScope.launch(Dispatchers.IO) {
-        if(localRepository.isFavoriteMovie(id)){
-            _detailArticle.value?.isFavorite = true
-        }
+        _detailMovie.value?.isFavorite = localRepository.isFavoriteMovie(id)
     }
 
 
     fun setDetail(movie: Doc) {
-        _detailArticle.value = movie
+        _detailMovie.value = movie
     }
 
     fun handleFavorite() {
-        val article = _detailArticle.value ?: return
-        if (article.isFavorite) {
-            deleteFavorite(article)
+        val movie = _detailMovie.value ?: return
+        if (movie.isFavorite) {
+            deleteFavorite(movie)
         } else {
-            addToFavorite(article)
+            addToFavorite(movie)
         }
     }
-    private fun addToFavorite(article: Doc) {
-        val actualArticle = article.copy(isFavorite = true)
-        setDetail(actualArticle)
+    private fun addToFavorite(movie: Doc) {
+        val actualMovie = movie.copy(isFavorite = true)
+        setDetail(actualMovie)
         viewModelScope.launch {
-            localRepository.addMovieToDb(actualArticle)
+            localRepository.addMovieToDb(actualMovie)
         }
     }
 
 
-    private fun deleteFavorite(article: Doc) {
-        val actualArticle = article.copy(isFavorite = false)
-        setDetail(actualArticle)
+    private fun deleteFavorite(movie: Doc) {
+        val actualMovie = movie.copy(isFavorite = false)
+        setDetail(actualMovie)
         viewModelScope.launch {
-            localRepository.removeMovieFromDb(article.copy(isFavorite = true))
+            localRepository.removeMovieFromDb(movie.copy(isFavorite = true))
         }
     }
     //@SuppressLint("SuspiciousIndentation")
@@ -74,4 +73,5 @@ class DetailViewModel: ViewModel() {
             url.substringAfterLast("embed/")
         } else url?.substringAfterLast("=")
     }
+
 }

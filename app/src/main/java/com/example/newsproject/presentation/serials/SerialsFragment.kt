@@ -64,7 +64,7 @@ class SerialsFragment : Fragment() {
             }
         }
 
-        viewModel.getMovie().observe(viewLifecycleOwner){
+        viewModel.movie.observe(viewLifecycleOwner){
             adapter.submitData(pagingData = it, lifecycle = lifecycle)
         }
 //        viewModel.movie.observe(viewLifecycleOwner) { response ->
