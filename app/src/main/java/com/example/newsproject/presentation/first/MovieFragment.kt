@@ -16,13 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsproject.R
 import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.FragmentFirstBinding
-import com.example.newsproject.presentation.first.adatper.NewsAdapter
+import com.example.newsproject.presentation.first.adatper.MovieAdapter
 import com.example.newsproject.utils.extensions.pxInt
 
-class FirstFragment : Fragment() {
+class MovieFragment : Fragment() {
 
     companion object{
-        fun newInstance() = FirstFragment()
+        fun newInstance() = MovieFragment()
     }
 
     private var _binding: FragmentFirstBinding? = null
@@ -32,8 +32,8 @@ class FirstFragment : Fragment() {
             navigateToDetailArticle(item)
         }
     }
-    private val adapter: NewsAdapter by lazy { NewsAdapter(listener = newsListener) }
-    private val viewModel by viewModels<NewsViewModel>()
+    private val adapter: MovieAdapter by lazy { MovieAdapter(listener = newsListener) }
+    private val viewModel by viewModels<MovieViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -115,7 +115,7 @@ class FirstFragment : Fragment() {
 
     private fun navigateToDetailArticle(item: Doc) {
         val bundle = bundleOf("data" to item)
-        findNavController().navigate(R.id.action_mainFragment_to_DetailArticleFragment, bundle)
+        findNavController().navigate(R.id.action_mainFragment2_to_DetailMovieFragment, bundle)
     }
 
 //    private fun showToast(text: String) {

@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.newsproject.databinding.FragmentMainBinding
 import com.example.newsproject.presentation.cartoons.CartoonsFragment
-import com.example.newsproject.presentation.favorite.FavoriteFragment
-import com.example.newsproject.presentation.first.FirstFragment
+import com.example.newsproject.presentation.first.MovieFragment
 import com.example.newsproject.presentation.serials.SerialsFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -17,7 +16,7 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val fragList = listOf(
-        FirstFragment.newInstance(),
+        MovieFragment.newInstance(),
         SerialsFragment.newInstance(),
         CartoonsFragment.newInstance()
     )

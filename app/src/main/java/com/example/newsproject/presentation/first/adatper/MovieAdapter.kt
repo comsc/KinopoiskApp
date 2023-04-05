@@ -12,7 +12,7 @@ import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.CardNewsBinding
 import com.example.newsproject.presentation.first.Listener
 
-class NewsAdapter(
+class MovieAdapter(
     private val listener: Listener
 ) : PagingDataAdapter<Doc, Holder>(Comparator) {
 

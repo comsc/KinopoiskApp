@@ -1,4 +1,4 @@
-package com.example.newsproject.presentation.second
+package com.example.newsproject.presentation.detail
 
 
 import android.annotation.SuppressLint
@@ -18,7 +18,7 @@ import coil.size.ViewSizeResolver
 import com.example.newsproject.R
 import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.FragmentSecondBinding
-import com.example.newsproject.presentation.second.bottomSheet.DescriptionBottomSheetDialog
+import com.example.newsproject.presentation.detail.bottomSheet.DescriptionBottomSheetDialog
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
@@ -27,11 +27,11 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiController
 
 
-class DetailArticleFragment : Fragment(){
+class DetailMovieFragment : Fragment(){
 
     private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
-    private val bundleArgs: DetailArticleFragmentArgs by navArgs()
+    private val bundleArgs: DetailMovieFragmentArgs by navArgs()
     private val viewModel by viewModels<DetailViewModel>()
 
 

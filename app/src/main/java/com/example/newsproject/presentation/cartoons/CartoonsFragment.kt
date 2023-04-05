@@ -1,12 +1,10 @@
 package com.example.newsproject.presentation.cartoons
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -16,8 +14,7 @@ import com.example.newsproject.R
 import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.FragmentCartoonsBinding
 import com.example.newsproject.presentation.first.Listener
-import com.example.newsproject.presentation.first.adatper.NewsAdapter
-import com.example.newsproject.utils.Resource
+import com.example.newsproject.presentation.first.adatper.MovieAdapter
 
 
 class CartoonsFragment : Fragment() {
@@ -26,10 +23,10 @@ class CartoonsFragment : Fragment() {
     private val viewModel by viewModels<CartoonsViewModel>()
     private val newsListener = object : Listener {
         override fun onClick(item: Doc) {
-            navigateToDetailArticle(item)
+            navigateToDetailMovie(item)
         }
     }
-    private val adapter: NewsAdapter by lazy { NewsAdapter(newsListener) }
+    private val adapter: MovieAdapter by lazy { MovieAdapter(newsListener) }
 
     companion object {
         fun newInstance() = CartoonsFragment()
@@ -104,14 +101,11 @@ class CartoonsFragment : Fragment() {
         recycleView.adapter = adapter
     }
 
-    private fun navigateToDetailArticle(item: Doc) {
+    private fun navigateToDetailMovie(item: Doc) {
         val bundle = bundleOf("data" to item)
-        findNavController().navigate(R.id.action_mainFragment_to_DetailArticleFragment, bundle)
+        findNavController().navigate(R.id.action_mainFragment2_to_DetailMovieFragment, bundle)
     }
 
-    private fun showToast(text: String) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

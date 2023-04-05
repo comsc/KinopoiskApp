@@ -1,4 +1,4 @@
-package com.example.newsproject.presentation.second.bottomSheet
+package com.example.newsproject.presentation.detail.bottomSheet
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -12,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsproject.R
@@ -21,6 +22,7 @@ import com.example.newsproject.presentation.first.Listener
 import com.example.newsproject.presentation.search.adapter.SearchAdapter
 import com.example.newsproject.utils.Resource
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class SearchFragment : Fragment() {
@@ -65,7 +67,13 @@ class SearchFragment : Fragment() {
             }
 
         }
-        binding.searchMovie.doAfterTextChanged { viewModel.searchMovie( it.toString()) }
+
+        binding.searchMovie.doAfterTextChanged {
+            lifecycleScope.launch {
+                delay(1000)
+                viewModel.searchMovie(it.toString())
+            }
+        }
     }
 
     private fun initRcView() = with(binding) {
@@ -75,12 +83,9 @@ class SearchFragment : Fragment() {
 
     private fun navigateToDetailArticle(item: Doc) {
         val bundle = bundleOf("data" to item)
-        findNavController().navigate(R.id.action_searchFragment_to_DetailArticleFragment, bundle)
+        findNavController().navigate(R.id.action_searchFragment2_to_DetailMovieFragment, bundle)
     }
 
-//    private fun showToast(text: String) {
-//        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

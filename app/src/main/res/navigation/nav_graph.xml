@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/mainFragment2">
 
     <fragment
-        android:id="@+id/DetailArticleFragment"
-        android:name="com.example.newsproject.presentation.second.DetailArticleFragment"
+        android:id="@+id/DetailMovieFragment"
+        android:name="com.example.newsproject.presentation.detail.DetailMovieFragment"
         tools:layout="@layout/fragment_second">
         <argument
             android:name="data"
@@ -16,38 +16,47 @@
             android:id="@+id/action_DetailArticleFragment_to_descriptionBottomSheetDialog"
             app:destination="@id/descriptionBottomSheetDialog" />
     </fragment>
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.newsproject.presentation.MainFragment"
-        tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_mainFragment_to_DetailArticleFragment"
-            app:destination="@id/DetailArticleFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="com.example.newsproject.presentation.favorite.FavoriteFragment"
-        android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" >
-        <action
-            android:id="@+id/action_favoriteFragment_to_DetailArticleFragment"
-            app:destination="@id/DetailArticleFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.example.newsproject.presentation.search.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_searchFragment_to_DetailArticleFragment"
-            app:destination="@id/DetailArticleFragment" />
-    </fragment>
     <dialog
         android:id="@+id/descriptionBottomSheetDialog"
-        android:name="com.example.newsproject.presentation.second.bottomSheet.DescriptionBottomSheetDialog"
+        android:name="com.example.newsproject.presentation.detail.bottomSheet.DescriptionBottomSheetDialog"
         android:label="DescriptionBottomSheetDialog" >
         <argument
             android:name="sheet"
             app:argType="com.example.newsproject.data.models.Doc" />
     </dialog>
+    <fragment
+        android:id="@+id/mainFragment2"
+        android:name="com.example.newsproject.presentation.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment2_to_DetailMovieFragment"
+            app:destination="@id/DetailMovieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.newsproject.presentation.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment2_to_DetailMovieFragment"
+            app:destination="@id/DetailMovieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment2"
+        android:name="com.example.newsproject.presentation.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment2_to_DetailMovieFragment"
+            app:destination="@id/DetailMovieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.example.newsproject.presentation.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment2_to_DetailMovieFragment"
+            app:destination="@id/DetailMovieFragment" />
+    </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.newsproject.presentation.second
+package com.example.newsproject.presentation.detail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

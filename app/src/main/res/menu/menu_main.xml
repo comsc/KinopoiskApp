@@ -6,20 +6,27 @@
 <!--        android:orderInCategory="100"-->
 <!--        android:title="@string/action_settings"-->
 <!--        app:showAsAction="never" />-->
+
     <item
-        android:id="@+id/mainFragment"
+        android:id="@+id/homeFragment2"
+        android:icon="@drawable/ic_home_compose"
+        android:iconTint="@color/bottom_nav_color"
+        app:showAsAction="ifRoom"
+        android:title="" />
+    <item
+        android:id="@+id/mainFragment2"
         android:icon="@drawable/ic_home"
         android:iconTint="@color/bottom_nav_color"
         app:showAsAction="ifRoom"
         android:title="" />
 
-    <item android:id="@+id/searchFragment"
+    <item android:id="@+id/searchFragment2"
         android:title=""
         android:icon="@drawable/ic_search"
         android:iconTint="@color/bottom_nav_color"
         app:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/favoriteFragment"
+    <item android:id="@+id/favoriteFragment2"
         android:title=""
         android:icon="@drawable/favorite_on"
         android:iconTint="@color/bottom_nav_color"

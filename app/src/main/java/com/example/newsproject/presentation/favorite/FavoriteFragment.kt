@@ -39,9 +39,6 @@ class FavoriteFragment : Fragment() {
         return binding.root
     }
 
-    companion object {
-        fun newInstance() = FavoriteFragment()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,6 +63,6 @@ class FavoriteFragment : Fragment() {
 
     private fun navigateToDetailFragment(item: Doc) {
         val bundle = bundleOf("data" to item)
-        findNavController().navigate(R.id.action_favoriteFragment_to_DetailArticleFragment, bundle)
+        findNavController().navigate(R.id.action_favoriteFragment2_to_DetailMovieFragment, bundle)
     }
 }

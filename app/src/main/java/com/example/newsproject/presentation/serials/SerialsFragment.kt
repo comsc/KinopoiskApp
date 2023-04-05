@@ -2,7 +2,6 @@ package com.example.newsproject.presentation.serials
 
 import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +18,7 @@ import com.example.newsproject.R
 import com.example.newsproject.data.models.Doc
 import com.example.newsproject.databinding.FragmentSerialsBinding
 import com.example.newsproject.presentation.first.Listener
-import com.example.newsproject.presentation.first.adatper.NewsAdapter
-import com.example.newsproject.utils.Resource
+import com.example.newsproject.presentation.first.adatper.MovieAdapter
 import com.example.newsproject.utils.extensions.pxInt
 
 class SerialsFragment : Fragment() {
@@ -32,7 +30,7 @@ class SerialsFragment : Fragment() {
             navigateToDetailArticle(item)
         }
     }
-    private val adapter: NewsAdapter by lazy { NewsAdapter(newsListener) }
+    private val adapter: MovieAdapter by lazy { MovieAdapter(newsListener) }
 
     companion object {
         fun newInstance() = SerialsFragment()
@@ -122,12 +120,10 @@ class SerialsFragment : Fragment() {
 
     private fun navigateToDetailArticle(item: Doc) {
         val bundle = bundleOf("data" to item)
-        findNavController().navigate(R.id.action_mainFragment_to_DetailArticleFragment, bundle)
+        findNavController().navigate(R.id.action_mainFragment2_to_DetailMovieFragment, bundle)
     }
 
-    private fun showToast(text: String) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

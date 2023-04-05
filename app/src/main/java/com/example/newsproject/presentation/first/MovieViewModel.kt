@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class NewsViewModel: ViewModel() {
+class MovieViewModel: ViewModel() {
 
     private val remoteRepository = DataObject.remoteRepository
     private val _movie:MutableLiveData<PagingData<Doc>> = MutableLiveData()
@@ -29,14 +29,5 @@ class NewsViewModel: ViewModel() {
             }.launchIn(viewModelScope)
         }
     }
-//    fun getMovie() = Pager(
-//        config = PagingConfig(
-//            pageSize = 10,
-//            enablePlaceholders = false
-//        ),
-//        pagingSourceFactory = { MoviePagingSource(remoteRepository, type = "movie") }
-//    ).flow.cachedIn(viewModelScope)
-
-
 }
 
